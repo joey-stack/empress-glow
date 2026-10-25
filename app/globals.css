@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    /* Orla Skin Reference Minimalist Palette Harmonized with Empress Glow */
+    --background: #f7f1e8;         /* Orla warm linen cream */
+    --foreground: #131010;         /* Deep obsidian charcoal */
+    --obsidian: #131010;           /* High-contrast dark sections & footer */
+    --surface: #ffffff;
+    --surface-muted: #faf6f0;
+    --border: #e5dcd0;             /* Delicate 1px hairline divider */
+    --border-dark: #262220;
+    --muted: #7b7366;
+    
+    /* Empress Glow Botanical Accents */
+    --primary: #2d5508;            /* Deep leaf green */
+    --primary-hover: #1e3b05;
+    --accent-leaf: #5a8210;        /* Vibrant leaf highlight */
+    --gold: #2d5508;               /* Empress botanical deep leaf green */
+    --gold-light: #f0f5ea;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* High-fashion editorial serif headlines */
+  h1, h2, h3, h4, .font-serif, .font-heading {
+    font-family: 'Playfair Display', Georgia, Cambria, serif;
+    letter-spacing: -0.01em;
+  }
+
+  /* Clean monospaced technical tags & specifications */
+  .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* Flowing Calligraphic Script matching "....Own your spot." */
+  .font-script {
+    font-family: 'Great Vibes', cursive;
+    letter-spacing: normal;
+  }
+}
+
+/* Micro-animations & Marquee */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 28s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+@keyframes communityScroll {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-community-scroll {
+  display: flex;
+  width: max-content;
+  animation: communityScroll 45s linear infinite;
+}
+
+.animate-community-scroll:hover {
+  animation-play-state: paused;
+}

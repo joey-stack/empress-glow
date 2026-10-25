@@ -1,0 +1,242 @@
+[
+  {
+    "id": "00000000-0000-0000-0000-000000000001",
+    "name": "Empress Glow Fruity Soap",
+    "slug": "empress-glow-fruity-soap",
+    "description": "A premium handcrafted fruit-based gel soap in a jar. Infused with pure botanical enzymes from fresh papaya, avocado, banana, and berries to gently restore natural radiance and suppleness.",
+    "price": 3000,
+    "compare_at_price": 3500,
+    "cost_per_item": 1200,
+    "sku": "EG-FS-HERO",
+    "vendor": "Empress Glow",
+    "images": [
+      "/images/fruity-soap-hero.jpg"
+    ],
+    "ingredients": [
+      "Carica Papaya (Papaya Fruit)",
+      "Musa Paradisiacum (Plantain/Banana Extract)",
+      "Cucumis Sativus (Cucumber Juice)",
+      "Persea Americana (Avocado Oil)",
+      "Wild Berries Extract",
+      "Distilled Water",
+      "Natural Fragrance Oils"
+    ],
+    "stock": 100,
+    "category": "soap",
+    "status": "active",
+    "created_at": "2021-03-20T00:00:00Z"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000002",
+    "name": "Empress Glow Facial Serum",
+    "slug": "empress-glow-serum",
+    "description": "Concentrated botanical infusion for deep cellular hydration, barrier restoration, and tone balance. Brightens, hydrates, and rejuvenates.",
+    "price": 8500,
+    "compare_at_price": 10000,
+    "cost_per_item": 3500,
+    "sku": "EG-SER-30",
+    "vendor": "Empress Glow",
+    "images": [
+      "/images/serum.jpg"
+    ],
+    "ingredients": [
+      "Hyaluronic Acid",
+      "Wild Papaya Enzymes",
+      "Rosehip Oil",
+      "Persea Americana Oil"
+    ],
+    "stock": 50,
+    "category": "serum",
+    "status": "active",
+    "created_at": "2021-03-20T00:00:00Z"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000003",
+    "name": "Empress Glow Moisturizing Cream",
+    "slug": "empress-glow-moisturizer",
+    "description": "Ultra-rich soothing barrier moisture cream for daily African climate defense, deep hydration, and supple skin resilience.",
+    "price": 6500,
+    "compare_at_price": 8000,
+    "cost_per_item": 2800,
+    "sku": "EG-MST-100",
+    "vendor": "Empress Glow",
+    "images": [
+      "/images/moisturizer.jpg"
+    ],
+    "ingredients": [
+      "Unrefined Shea Butter",
+      "Aloe Vera Leaf Juice",
+      "Tocopherol (Vitamin E)",
+      "Cucumber Extract"
+    ],
+    "stock": 45,
+    "category": "moisturizer",
+    "status": "active",
+    "created_at": "2021-03-20T00:00:00Z"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000010",
+    "name": "Empress Glow Nourishing Body Lotion",
+    "slug": "empress-glow-nourishing-body-lotion",
+    "description": "Ultra-rich golden botanical body lotion with restorative plant lipids, botanical peptides, and natural glow booster.",
+    "price": 8000,
+    "compare_at_price": 9500,
+    "cost_per_item": 3200,
+    "sku": "EG-LOT-250",
+    "vendor": "Empress Glow",
+    "images": [
+      "/images/body-lotion.jpg"
+    ],
+    "ingredients": [
+      "Shea Butter",
+      "Gold Botanical Peptides",
+      "Avocado Oil",
+      "Papaya Fruit Extract"
+    ],
+    "stock": 50,
+    "category": "lotion",
+    "status": "active",
+    "created_at": "2021-03-20T00:00:00Z"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000011",
+    "name": "Empress Glow Luxury Shower Gel",
+    "slug": "empress-glow-luxury-shower-gel",
+    "description": "Revitalizing fruit-infused shower nectar leaving skin silky soft, deeply cleansed, moisturized, and luminous.",
+    "price": 6500,
+    "compare_at_price": 8000,
+    "cost_per_item": 2500,
+    "sku": "EG-GEL-250",
+    "vendor": "Empress Glow",
+    "images": [
+      "/images/shower-gel.jpg"
+    ],
+    "ingredients": [
+      "Fruit Enzymes",
+      "Plant Glycerin",
+      "Aloe Leaf Extract",
+      "Botanical Nectar"
+    ],
+    "stock": 60,
+    "category": "cleanser",
+    "status": "active",
+    "created_at": "2021-03-20T00:00:00Z"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000004",
+    "name": "Empress Glow Sunscreen SPF 50+",
+    "slug": "empress-glow-sunscreen",
+    "description": "Broad spectrum SPF 50+ broad barrier defense leaving zero white cast on melanin skin.",
+    "price": 7500,
+    "compare_at_price": 9000,
+    "cost_per_item": 3200,
+    "sku": "EG-SUN-75",
+    "vendor": "Empress Glow",
+    "images": [
+      "/images/sunscreen.jpg"
+    ],
+    "ingredients": [
+      "Non-Nano Zinc Oxide",
+      "Niacinamide",
+      "Cucumber Juice",
+      "Green Tea Extract"
+    ],
+    "stock": 60,
+    "category": "sunscreen",
+    "status": "active",
+    "created_at": "2021-03-20T00:00:00Z"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000005",
+    "name": "Empress Glow Restoration Face Cream",
+    "slug": "empress-glow-restoration-face-cream",
+    "description": "Overnight regenerative elixir replenishing vital skin lipids and youthful elasticity.",
+    "price": 9000,
+    "compare_at_price": 11000,
+    "cost_per_item": 4000,
+    "sku": "EG-CRM-50",
+    "vendor": "Empress Glow",
+    "images": [
+      "/images/face-cream.jpg"
+    ],
+    "ingredients": [
+      "Persea Americana (Avocado)",
+      "Botanical Peptides",
+      "Calendula Petals",
+      "Jojoba Seed Oil"
+    ],
+    "stock": 40,
+    "category": "cream",
+    "status": "active",
+    "created_at": "2021-03-20T00:00:00Z"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000006",
+    "name": "Empress Glow Face Sheet Mask",
+    "slug": "empress-glow-face-sheet-mask",
+    "description": "Biodegradable fruit-serum soaked sheet mask for instant weekend revitalizing glow.",
+    "price": 2500,
+    "compare_at_price": 3000,
+    "cost_per_item": 900,
+    "sku": "EG-MSK-01",
+    "vendor": "Empress Glow",
+    "images": [
+      "/images/sheet-mask.jpg"
+    ],
+    "ingredients": [
+      "Centella Asiatica",
+      "Papaya Enzyme",
+      "Plant Glycerin",
+      "Musa Extract"
+    ],
+    "stock": 120,
+    "category": "mask",
+    "status": "active",
+    "created_at": "2021-03-20T00:00:00Z"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000007",
+    "name": "Empress Glow Face Cleanser",
+    "slug": "empress-glow-face-cleanser",
+    "description": "Gentle pH-balanced foaming botanical cleanser washing away impurities without stripping.",
+    "price": 5500,
+    "compare_at_price": 6500,
+    "cost_per_item": 2100,
+    "sku": "EG-CLN-150",
+    "vendor": "Empress Glow",
+    "images": [
+      "/images/cleanser.jpg"
+    ],
+    "ingredients": [
+      "Chamomile Floral Water",
+      "Papaya Fruit Extract",
+      "Camellia Sinensis (Green Tea)"
+    ],
+    "stock": 55,
+    "category": "cleanser",
+    "status": "active",
+    "created_at": "2021-03-20T00:00:00Z"
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000008",
+    "name": "Aura Botanicals Pure Baobab Glow Oil",
+    "slug": "aura-botanicals-pure-baobab-glow-oil",
+    "description": "Cold-pressed wild baobab seed oil rich in omega fatty acids and vitamins A, D, and E for deep cellular radiance.",
+    "price": 12000,
+    "compare_at_price": 14000,
+    "cost_per_item": 6000,
+    "sku": "AB-BAO-30",
+    "vendor": "Aura Botanicals",
+    "images": [
+      "/images/baobab-oil.jpg"
+    ],
+    "ingredients": [
+      "100% Cold-Pressed Adansonia Digitata (Baobab) Seed Oil",
+      "Vitamin E (Tocopherol)"
+    ],
+    "stock": 35,
+    "category": "oil",
+    "status": "active",
+    "created_at": "2021-03-20T00:00:00Z"
+  }
+]

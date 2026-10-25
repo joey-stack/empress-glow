@@ -1,0 +1,119 @@
+[
+  {
+    "id": "v1",
+    "product_id": "00000000-0000-0000-0000-000000000001",
+    "name": "Small (150g)",
+    "price": 3000,
+    "stock": 25,
+    "sku": "EG-FS-S",
+    "sort_order": 1
+  },
+  {
+    "id": "v2",
+    "product_id": "00000000-0000-0000-0000-000000000001",
+    "name": "Medium (250g)",
+    "price": 7000,
+    "stock": 25,
+    "sku": "EG-FS-M",
+    "sort_order": 2
+  },
+  {
+    "id": "v3",
+    "product_id": "00000000-0000-0000-0000-000000000001",
+    "name": "Large (350g)",
+    "price": 11000,
+    "stock": 25,
+    "sku": "EG-FS-L",
+    "sort_order": 3
+  },
+  {
+    "id": "v4",
+    "product_id": "00000000-0000-0000-0000-000000000001",
+    "name": "XL (500g)",
+    "price": 16000,
+    "stock": 25,
+    "sku": "EG-FS-XL",
+    "sort_order": 4
+  },
+  {
+    "id": "v-serum-1",
+    "product_id": "00000000-0000-0000-0000-000000000002",
+    "name": "Dropper Bottle (30ml)",
+    "price": 8500,
+    "stock": 50,
+    "sku": "EG-SER-30",
+    "sort_order": 1
+  },
+  {
+    "id": "v-moist-1",
+    "product_id": "00000000-0000-0000-0000-000000000003",
+    "name": "Cream Jar (100ml)",
+    "price": 6500,
+    "stock": 45,
+    "sku": "EG-MST-100",
+    "sort_order": 1
+  },
+  {
+    "id": "v-lot-1",
+    "product_id": "00000000-0000-0000-0000-000000000010",
+    "name": "Pump Bottle (250ml)",
+    "price": 8000,
+    "stock": 50,
+    "sku": "EG-LOT-250",
+    "sort_order": 1
+  },
+  {
+    "id": "v-gel-1",
+    "product_id": "00000000-0000-0000-0000-000000000011",
+    "name": "Shower Pump (250ml)",
+    "price": 6500,
+    "stock": 60,
+    "sku": "EG-GEL-250",
+    "sort_order": 1
+  },
+  {
+    "id": "v-sun-1",
+    "product_id": "00000000-0000-0000-0000-000000000004",
+    "name": "Tube (75ml)",
+    "price": 7500,
+    "stock": 60,
+    "sku": "EG-SUN-75",
+    "sort_order": 1
+  },
+  {
+    "id": "v-cream-1",
+    "product_id": "00000000-0000-0000-0000-000000000005",
+    "name": "Night Jar (50ml)",
+    "price": 9000,
+    "stock": 40,
+    "sku": "EG-CRM-50",
+    "sort_order": 1
+  },
+  {
+    "id": "v-mask-1",
+    "product_id": "00000000-0000-0000-0000-000000000006",
+    "name": "Single Sheet (25g)",
+    "price": 2500,
+    "stock": 120,
+    "sku": "EG-MSK-01",
+    "sort_order": 1
+  },
+  {
+    "id": "v-clns-1",
+    "product_id": "00000000-0000-0000-0000-000000000007",
+    "name": "Foam Pump (150ml)",
+    "price": 5500,
+    "stock": 55,
+    "sku": "EG-CLN-150",
+    "sort_order": 1
+  },
+  {
+    "id": "v-bao-1",
+    "product_id": "00000000-0000-0000-0000-000000000008",
+    "name": "Standard Bottle (30ml)",
+    "price": 12000,
+    "stock": 35,
+    "sku": "AB-BAO-30",
+    "sort_order": 1
+  }
+]

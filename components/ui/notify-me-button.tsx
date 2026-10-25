@@ -11,6 +11,7 @@ interface NotifyMeButtonProps {
   vendor?: string;
   className?: string;
   variant?: 'primary' | 'outline' | 'pill';
+  navigateToProduct?: boolean;
 }
 
 export function NotifyMeButton({
@@ -19,6 +20,7 @@ export function NotifyMeButton({
   vendor = 'Empress Glow',
   className = '',
   variant = 'primary',
+  navigateToProduct = false,
 }: NotifyMeButtonProps) {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
@@ -30,6 +32,18 @@ export function NotifyMeButton({
     variantStyles = 'border border-[#131010] text-[#131010] bg-transparent hover:bg-[#131010] hover:text-[#f7f1e8]';
   } else if (variant === 'pill') {
     variantStyles = 'bg-[#131010] text-[#f7f1e8] hover:bg-[#2d5508] border border-[#131010] hover:border-[#2d5508] rounded-none text-[11px]';
+  }
+
+  // If navigateToProduct is set, navigate directly to product page
+  if (navigateToProduct) {
+    return (
+      <Link
+        href={productSlug ? `/product/${productSlug}` : '/products'}
+        className={`${baseStyles} ${variantStyles} ${className}`}
+      >
+        <span>Notify Me When Available</span>
+      </Link>
+    );
   }
 
   // Empress Glow products remain in prelaunch Notify Me mode; partner brands link to order

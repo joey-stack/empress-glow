@@ -35,7 +35,7 @@ export default async function HomePage() {
             loop
             muted
             playsInline
-            preload="auto"
+            preload="metadata"
             className="w-full h-full object-cover object-center scale-102"
           />
           {/* Edge Gradients - Center remains completely open & clear for model's face */}
@@ -73,6 +73,7 @@ export default async function HomePage() {
                   productSlug={heroProduct?.slug}
                   productName={heroProduct?.name}
                   vendor={heroProduct?.vendor}
+                  navigateToProduct={true}
                   className="flex-1 min-h-[52px] h-[52px]"
                 />
                 <Link

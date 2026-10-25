@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 import type { Metadata } from 'next';
 import {
   getSubscribers,
@@ -9,6 +10,7 @@ import {
   getAllUsers,
   getStoreAnalyticsData,
 } from '@/lib/insforge/queries';
+import { getSessionUser } from '@/lib/auth/session';
 import { isPrelaunch } from '@/lib/phase';
 
 export const metadata: Metadata = {
@@ -17,6 +19,15 @@ export const metadata: Metadata = {
 };
 
 export default async function AdminDashboardPage() {
+  const session = await getSessionUser();
+  if (
+    !session ||
+    !session.role ||
+    !['super_admin', 'inventory_manager', 'support_staff', 'read_only'].includes(session.role as any)
+  ) {
+    redirect('/admin/login');
+  }
+
   const [subscribers, blogPosts, products, orders, users, analyticsData] = await Promise.all([
     getSubscribers(),
     getBlogPosts(),

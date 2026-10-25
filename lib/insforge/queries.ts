@@ -2138,6 +2138,7 @@ export interface AdminStaffUser {
   role: AdminRole;
   title: string;
   avatar?: string;
+  password_hash?: string;
   status: 'active' | 'invited' | 'suspended';
   created_at: string;
   last_active_at?: string;
@@ -2193,6 +2194,7 @@ const SEED_STAFF_USERS: AdminStaffUser[] = [
     email: 'mary@empressglowemporium.com',
     role: 'super_admin',
     title: 'Founder & Master Formulator',
+    password_hash: '$2a$12$demoHashEmpressGlow2026FounderMasterKey',
     status: 'active',
     created_at: '2026-01-10T08:00:00Z',
     last_active_at: new Date().toISOString(),
@@ -2203,6 +2205,7 @@ const SEED_STAFF_USERS: AdminStaffUser[] = [
     email: 'amina.ops@empressglowemporium.com',
     role: 'inventory_manager',
     title: 'Botanical Inventory & Workshop Lead',
+    password_hash: '$2a$12$demoHashEmpressGlow2026FounderMasterKey',
     status: 'active',
     created_at: '2026-02-01T09:30:00Z',
     last_active_at: new Date(Date.now() - 3600000).toISOString(),
@@ -2213,6 +2216,7 @@ const SEED_STAFF_USERS: AdminStaffUser[] = [
     email: 'chukwudi.care@empressglowemporium.com',
     role: 'support_staff',
     title: 'Client Care & WhatsApp Lead',
+    password_hash: '$2a$12$demoHashEmpressGlow2026FounderMasterKey',
     status: 'active',
     created_at: '2026-02-15T11:00:00Z',
     last_active_at: new Date(Date.now() - 7200000).toISOString(),
@@ -2223,6 +2227,7 @@ const SEED_STAFF_USERS: AdminStaffUser[] = [
     email: 'compliance@empressglowemporium.com',
     role: 'read_only',
     title: 'NAFDAC & NDPA Compliance Inspector',
+    password_hash: '$2a$12$demoHashEmpressGlow2026FounderMasterKey',
     status: 'active',
     created_at: '2026-03-01T14:00:00Z',
     last_active_at: new Date(Date.now() - 86400000).toISOString(),

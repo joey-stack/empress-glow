@@ -15,6 +15,17 @@ export function AdminShell({ children }: AdminShellProps) {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
+  const [currentStaff, setCurrentStaff] = useState<{
+    name: string;
+    email: string;
+    role: string;
+    title: string;
+  }>({
+    name: 'Mary Asuquo',
+    email: 'mary@empressglowemporium.com',
+    role: 'super_admin',
+    title: 'Founder & Master Formulator',
+  });
 
   // Global Cmd+K / Ctrl+K keyboard shortcut listener
   useEffect(() => {
@@ -28,6 +39,38 @@ export function AdminShell({ children }: AdminShellProps) {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
+
+  // Fetch authenticated staff member profile
+  useEffect(() => {
+    if (pathname === '/admin/login') return;
+    fetch('/api/admin/staff')
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.currentActor) {
+          setCurrentStaff({
+            name: data.currentActor.name || 'Mary Asuquo',
+            email: data.currentActor.email || 'mary@empressglowemporium.com',
+            role: data.currentActor.role || 'super_admin',
+            title: data.currentActor.title || 'Founder & Master Formulator',
+          });
+        }
+      })
+      .catch(() => {});
+  }, [pathname]);
+
+  const handleSignOut = async () => {
+    try {
+      await fetch('/api/auth/logout', { method: 'POST' });
+      window.location.href = '/admin/login';
+    } catch {
+      window.location.href = '/admin/login';
+    }
+  };
+
+  // If on admin login page, render children directly without admin shell wrapper
+  if (pathname === '/admin/login') {
+    return <>{children}</>;
+  }
 
 interface AdminNavItem {
   label: string;
@@ -341,30 +384,48 @@ interface AdminNavGroup {
           ))}
         </div>
 
-        {/* Bottom Store Profile — Mary Asuquo */}
-        <div className="p-3 border-t border-[#262220] bg-[#0d0c0c]">
+        {/* Bottom Store Profile — Active Staff Member with Logout */}
+        <div className="p-3 border-t border-[#262220] bg-[#0d0c0c] space-y-2">
           <Link
             href="/admin/staff"
-            className="p-3 bg-[#171514] hover:bg-[#1f1c1a] border border-[#262220] hover:border-[#5a8210] flex items-center justify-between transition-colors group block"
+            className="p-2.5 bg-[#171514] hover:bg-[#1f1c1a] border border-[#262220] hover:border-[#5a8210] flex items-center justify-between transition-colors group block"
           >
-            <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 bg-[#2d5508] border border-[#5a8210] flex items-center justify-center font-mono font-bold text-xs text-[#f7f1e8]">
-                MA
+            <div className="flex items-center gap-2.5 min-w-0">
+              <div className="w-8 h-8 shrink-0 bg-[#2d5508] border border-[#5a8210] flex items-center justify-center font-mono font-bold text-xs text-[#f7f1e8]">
+                {currentStaff.name
+                  .split(' ')
+                  .map((n) => n[0])
+                  .join('')
+                  .slice(0, 2)
+                  .toUpperCase()}
               </div>
-              <div className="leading-tight">
-                <div className="text-xs font-medium text-[#f7f1e8] group-hover:text-[#a3d95b] transition-colors">
-                  Mary Asuquo
+              <div className="leading-tight truncate">
+                <div className="text-xs font-medium text-[#f7f1e8] group-hover:text-[#a3d95b] transition-colors truncate">
+                  {currentStaff.name}
                 </div>
-                <div className="font-mono text-[9px] text-[#a89e90]">Super Admin &bull; Formulator</div>
+                <div className="font-mono text-[9px] text-[#a89e90] truncate">
+                  {currentStaff.title}
+                </div>
               </div>
             </div>
             <span
-              className={`w-2 h-2 ${
+              className={`w-2 h-2 shrink-0 ml-1 ${
                 isPrelaunch ? 'bg-amber-400' : 'bg-[#5a8210]'
               }`}
               title={isPrelaunch ? 'Pre-launch Active' : 'Live Store Active'}
             />
           </Link>
+
+          <button
+            type="button"
+            onClick={handleSignOut}
+            className="w-full flex items-center justify-center gap-1.5 py-1.5 px-3 border border-white/10 hover:border-red-500/50 bg-[#141211] hover:bg-red-950/20 text-[#a89e90] hover:text-red-400 font-mono text-[10px] uppercase tracking-wider transition-colors cursor-pointer"
+          >
+            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+            </svg>
+            <span>Sign Out</span>
+          </button>
         </div>
       </aside>
 
@@ -437,6 +498,18 @@ interface AdminNavGroup {
               </svg>
               <span>Add Product</span>
             </Link>
+
+            {/* Header Sign Out Action */}
+            <button
+              type="button"
+              onClick={handleSignOut}
+              title="Sign out of Admin Control Center"
+              className="inline-flex items-center justify-center p-2 border border-[#e5dcd0] hover:border-red-500/50 bg-white hover:bg-red-50 text-[#7b7366] hover:text-red-600 transition-colors cursor-pointer"
+            >
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+              </svg>
+            </button>
           </div>
         </header>
 

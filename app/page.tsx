@@ -26,21 +26,32 @@ export default async function HomePage() {
     <div className="flex flex-col min-h-screen bg-[#f7f1e8] text-[#131010]">
       {/* 1. CINEMATIC FULL-WIDTH VIDEO HERO (Model Face Unobstructed) */}
       <section className="relative w-full min-h-[750px] lg:min-h-[90vh] flex flex-col justify-between overflow-hidden bg-[#131010]">
-        {/* Background Looping Cinematic Video */}
+        {/* Background Looping Cinematic Video with High-Res Priority Fallback */}
         <div className="absolute inset-0 w-full h-full z-0">
+          {/* Priority High-Res Fallback Image for Immediate LCP Paint */}
+          <Image
+            src="/images/mary-hero-lifestyle.jpg"
+            alt="Mary Asuquo holding Empress Glow Fruity Soap"
+            fill
+            priority
+            quality={85}
+            sizes="100vw"
+            className="w-full h-full object-cover object-center scale-102"
+          />
           <video
-            src="/images/herobgvide.mp4"
-            poster="/images/fruity-soap-hero.jpg"
             autoPlay
             loop
             muted
             playsInline
-            preload="metadata"
-            className="w-full h-full object-cover object-center scale-102"
-          />
+            preload="auto"
+            poster="/images/mary-hero-lifestyle.jpg"
+            className="w-full h-full object-cover object-center scale-102 relative z-[1]"
+          >
+            <source src="/images/herobgvide.mp4" type="video/mp4" />
+          </video>
           {/* Edge Gradients - Center remains completely open & clear for model's face */}
-          <div className="absolute inset-0 bg-gradient-to-r from-black/65 via-transparent to-black/55 pointer-events-none" />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-transparent to-[#131010]/80 pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/65 via-transparent to-black/55 pointer-events-none z-[2]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-transparent to-[#131010]/80 pointer-events-none z-[2]" />
         </div>
 
         {/* Hero Asymmetrical Editorial Content Wrap */}

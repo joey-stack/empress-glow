@@ -44,6 +44,19 @@ export async function POST(req: Request) {
       password_hash,
     });
 
+    // Synchronize account with InsForge BaaS Auth engine
+    try {
+      const { insforgeAdmin } = await import('@/lib/insforge/admin');
+      await insforgeAdmin.auth.signUp({
+        email: user.email,
+        password,
+        name: user.name,
+      });
+    } catch (e) {
+      // Continue seamlessly if InsForge cloud verification is queued
+      console.warn('InsForge BaaS account sync notice:', e);
+    }
+
     await createSession({
       id: user.id,
       email: user.email,

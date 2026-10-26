@@ -173,7 +173,7 @@ export function NotifyMeDrawer({
                       type="text"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      placeholder="Mary Udoh"
+                      placeholder="Mary Asuquo"
                       className="w-full px-4 py-3 border border-[#e5dcd0] bg-[#ffffff] focus:outline-none focus:border-[#131010] text-sm text-[#131010] transition-colors"
                     />
                   </div>

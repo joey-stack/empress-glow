@@ -94,7 +94,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               </div>
               <div>
                 <span className="font-semibold text-xs text-[#131010] block">Mary Asuquo</span>
-                <span className="text-[11px] text-[#7b7366]">Founder & Botanical Formulator</span>
+                <span className="text-[11px] text-[#7b7366]">Biochemist, Founder & Formulator</span>
               </div>
             </div>
 
@@ -217,10 +217,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               About Mary Asuquo
             </h3>
             <p className="text-xs text-[#7b7366] uppercase tracking-wider mb-2">
-              Founder & Master Formulator • Abuja, Nigeria
+              Biochemist & Founder • Abuja, Nigeria
             </p>
             <p className="text-xs sm:text-sm text-[#7b7366] leading-relaxed">
-              Mary Asuquo founded Empress Glow Emporium on March 20, 2021, seeking gentle, authentic African fruit formulations for sensitive melanin skin. She personally provides complimentary skincare consultations on WhatsApp.
+              Mary Asuquo began formulating during her second year at university, applying her background in biochemistry to engineer natural bioactive recipes for young women battling acne, hyperpigmentation, and blackheads. She founded Empress Glow Emporium to provide gentle, science-backed botanical care honoring melanin skin.
             </p>
           </div>
         </div>

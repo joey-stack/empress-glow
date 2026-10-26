@@ -6,7 +6,7 @@ import { NafdacCaveat } from '@/components/ui/nafdac-caveat';
 export const metadata: Metadata = {
   title: 'Skincare Consultation with Mary Asuquo | Empress Glow Emporium',
   description:
-    'Schedule a complimentary 1-on-1 personalized Nigerian botanical skincare consultation directly on WhatsApp with founder Mary Asuquo. Nourishing melanin-first routines.',
+    'Book a 1-on-1 personalized Nigerian botanical skincare consultation directly on WhatsApp with founder and biochemist Mary Asuquo (₦5,000 fee). Nourishing melanin-first routines.',
 };
 
 export default function ConsultationPage() {
@@ -30,7 +30,7 @@ export default function ConsultationPage() {
       title: 'Tailored Botanical Ritual',
       description:
         'Receive a custom step-by-step regimen formulated with pure fruit enzymes, nourishing African plant oils, and gentle barrier-restorative botanicals.',
-      action: 'Complimentary Plan',
+      action: 'Tailored Regimen Plan',
     },
   ];
 
@@ -63,9 +63,9 @@ export default function ConsultationPage() {
 
   const faqs = [
     {
-      question: 'Is the WhatsApp skincare consultation really free?',
+      question: 'What is the fee for a 1-on-1 skincare consultation with Mary?',
       answer:
-        'Yes, completely complimentary! Mary believes every woman deserves honest, empathetic skincare guidance before making a decision. You are under no obligation to purchase.',
+        'One-on-one personalized consultations are ₦5,000. Mary conducts an in-depth review of your skin barrier, daily routine, climate exposure, and issues like acne, hyperpigmentation, or blackheads, providing a dedicated, biochemist-formulated routine tailored directly to you.',
     },
     {
       question: 'How quickly does Mary respond?',
@@ -85,7 +85,7 @@ export default function ConsultationPage() {
   ];
 
   const encodedWhatsAppUrl = `https://wa.me/2348035650299?text=${encodeURIComponent(
-    'Hello Mary, I would like to schedule a personalized botanical skincare consultation.'
+    'Hello Mary, I would like to book a 1-on-1 skincare consultation (₦5,000).'
   )}`;
 
   return (
@@ -103,13 +103,13 @@ export default function ConsultationPage() {
         {/* 1. Hero Section */}
         <div className="text-center max-w-3xl mx-auto mb-16 lg:mb-24">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-none bg-[#f0f5ea] text-[#2d5508] text-xs font-semibold tracking-wider uppercase mb-6">
-            <span>🌿 Complimentary 1-on-1 Expert Advisory</span>
+            <span>🌿 1-on-1 Expert Advisory • ₦5,000 Consultation Fee</span>
           </div>
           <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-normal tracking-tight text-[#131010] mb-6 leading-tight">
             Your Skin Journey Begins with an Expert
           </h1>
           <p className="text-base sm:text-lg text-[#7b7366] leading-relaxed font-sans mb-8">
-            Stop guessing with harsh chemicals. Speak directly with Empress Glow founder Mary Asuquo on WhatsApp for honest, botanical-first guidance crafted specifically for your skin.
+            Stop guessing with harsh chemicals. Speak directly with Empress Glow founder and biochemist Mary Asuquo on WhatsApp for honest, science-backed botanical guidance crafted specifically for your skin (₦5,000 consultation fee).
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -122,7 +122,7 @@ export default function ConsultationPage() {
               <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
                 <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z" />
               </svg>
-              Start WhatsApp Consultation
+              Book Consultation (₦5,000)
             </a>
             <a
               href="https://wa.me/c/2348035650299"

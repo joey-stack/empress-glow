@@ -772,7 +772,7 @@ const contentStore: Record<string, any> = {
   },
   about_story: {
     founder: 'Mary Asuquo',
-    founder_placeholder: true, // tagged per brief
+    founder_placeholder: false, // confirmed by client sign-off
     founded: '20 March 2021',
     mission: 'Empress Glow Emporium is a Nigerian natural skincare brand handcrafted with genuine African fruits and botanicals.',
     tagline: '...Own your spot.',
@@ -2054,9 +2054,9 @@ const SEED_MARKETING_POPUPS: MarketingPopup[] = [
   },
   {
     id: 'pop_002',
-    name: 'Complimentary Skincare WhatsApp Consultation',
+    name: 'Personalized Skincare WhatsApp Consultation',
     headline: 'Need Help Choosing Your Routine?',
-    body: 'Connect directly with our botanical skin specialists on WhatsApp for personalized advice tailored to your skin type.',
+    body: 'Connect directly with founder Mary Asuquo on WhatsApp for a dedicated 1-on-1 routine consultation tailored to your skin type.',
     cta_text: 'Chat With Mary On WhatsApp',
     cta_link: 'https://wa.me/2348035650299',
     trigger_type: 'exit_intent',

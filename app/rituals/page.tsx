@@ -184,7 +184,7 @@ export default function RitualsPage() {
             Need a Personalized Routine?
           </h2>
           <p className="text-xs sm:text-sm text-[#a89e90] max-w-xl mx-auto leading-relaxed">
-            Every skin barrier is unique. Talk to Mary Udoh directly on WhatsApp to calibrate these rituals to your exact sensitivity and lifestyle.
+            Every skin barrier is unique. Talk to Mary Asuquo directly on WhatsApp to calibrate these rituals to your exact sensitivity and lifestyle.
           </p>
           <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
             <a

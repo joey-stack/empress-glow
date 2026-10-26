@@ -14,9 +14,9 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   const brandPillars = [
     {
-      title: '100% Botanical Extracts & Fruit Enzymes',
+      title: 'Biochemistry-Backed Botanical Formulations',
       description:
-        'We harness bioactive enzymes from fresh papaya, avocado oil, plantain, and wild tropical botanicals to gently nourish and renew without harsh synthetics.',
+        'Rooted in founder Mary Asuquo’s biochemistry training, we harness bioactive enzymes from fresh papaya, avocado oil, plantain, and wild tropical botanicals to gently nourish and renew without harsh synthetics.',
     },
     {
       title: 'Formulated Specially for Melanin Skin',
@@ -37,22 +37,28 @@ export default function AboutPage() {
 
   const milestones = [
     {
-      year: 'March 20, 2021',
-      title: 'The Abuja Inception',
+      year: 'University Roots',
+      title: 'The Biochemical Inception',
       description:
-        'Frustrated by harsh commercial bleaching products, Mary Asuquo handcrafted the first signature batch of Empress Glow Fruity Soap in glass jars using fresh papaya and avocado.',
+        'During her second year at university, biochemist Mary Asuquo observed young women continuously battling distressing skin issues—acne, hyperpigmentation, and blackheads. Driven by scientific inquiry and deep empathy, she began researching natural bioactive recipes to safely manage these conditions.',
+    },
+    {
+      year: 'March 20, 2021',
+      title: 'The First Handcrafted Batches',
+      description:
+        'Translating university research and biochemical knowledge of skin physiology into practice, Mary handcrafted the first signature batches of Empress Glow Fruity Soap in glass jars using fresh papaya, avocado, and living bioactive enzymes.',
     },
     {
       year: '2022',
       title: 'The WhatsApp Skin Community',
       description:
-        'Word of mouth spread rapidly across Nigerian cities. Mary began holding direct 1-on-1 consultations on WhatsApp, guiding hundreds of women toward restorative, chemical-free rituals.',
+        'Word of mouth spread rapidly across Nigerian cities. Mary began holding direct 1-on-1 consultations on WhatsApp, guiding hundreds of women toward restorative, chemical-free rituals tailored to their skin barrier.',
     },
     {
       year: '2023 – 2024',
       title: 'Formulation of Supporting Essentials',
       description:
-        'To complement the hero Fruity Soap, the Empress Glow lab developed supporting botanical formulas: clarifying cleanser, balancing serum, barrier moisturizer, and mineral sunscreen.',
+        'To complement the hero Fruity Soap, Mary engineered supporting botanical formulas: clarifying cleanser, balancing serum, barrier moisturizer, and mineral sunscreen.',
     },
     {
       year: '2026',
@@ -98,35 +104,38 @@ export default function AboutPage() {
           <div className="lg:col-span-5 relative min-h-[420px] lg:min-h-full border-b lg:border-b-0 lg:border-r border-[#e5dcd0] bg-[#faf6f0]">
             <Image
               src="/images/mary-founder.jpg"
-              alt="Mary Asuquo, Founder of Empress Glow Emporium"
+              alt="Mary Asuquo, Biochemist & Founder of Empress Glow Emporium"
               fill
               sizes="(max-width: 1024px) 100vw, 42vw"
               className="object-cover object-center"
             />
             <div className="absolute bottom-6 left-6 bg-[#131010]/90 text-[#f7f1e8] font-mono text-[10px] uppercase tracking-[0.2em] px-4 py-2 border border-white/10 backdrop-blur-sm">
-              Mary Asuquo • Founder & Formulator
+              Mary Asuquo • Biochemist & Founder
             </div>
           </div>
 
           {/* Founder Narrative */}
           <div className="lg:col-span-7 p-8 sm:p-12 lg:p-16 space-y-6 flex flex-col justify-center">
             <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#2d5508] block">
-              Origin & Purpose
+              Origin & Scientific Purpose
             </span>
             <h2 className="font-serif text-3xl sm:text-4xl text-[#131010] font-normal leading-snug">
-              Nourishing Melanin Skin with Nature’s Bioactive Enzymes
+              Bridging Biochemistry with Pure Botanical Radiance
             </h2>
             <div className="space-y-4 text-sm text-[#524b42] leading-relaxed">
               <p>
-                Empress Glow Emporium was conceived out of personal necessity and genuine care. In a Nigerian beauty marketplace flooded with harsh synthetic bleaches, steroid creams, and aggressive peeling soaps that damage the skin's moisture barrier, founder Mary Asuquo knew there had to be a healthier, gentler path.
+                Empress Glow Emporium was conceived during Mary Asuquo's second year at university. As a biochemistry student, Mary watched countless young women around her battling distressing skin challenges—persistent acne, stubborn hyperpigmentation, blackheads, and damaged skin barriers aggravated by harsh commercial bleaching products and peeling soaps.
               </p>
               <p>
-                On March 20, 2021, she began formulating handcrafted fruit-based soaps directly in glass jars. By utilizing cold-pressed African oils and bio-enzymes from ripe papaya, avocado, banana, and cucumber, Mary created gentle skincare that celebrated melanin radiance rather than attempting to alter it.
+                Recognizing the urgent need for safe, restorative care in the Nigerian beauty marketplace, her training in biochemistry pushed her into finding a scientific way to manage these skin conditions using natural bioactive recipes. Rather than stripping or altering melanin skin, she formulated nutrient-rich preparations using fresh cold-pressed African oils and living bio-enzymes from ripe papaya, avocado, banana, and cucumber.
+              </p>
+              <p>
+                On March 20, 2021, that biochemical vision evolved into the handcrafted first batch of Empress Glow Fruity Soap in glass jars—grounded in barrier physiology and formulated to honor every shade of melanin.
               </p>
               <blockquote className="border-l-2 border-[#2d5508] pl-4 py-2 italic text-[#131010] font-serif text-base sm:text-lg my-4 bg-[#faf6f0]">
-                "Healthy skin does not come from stripping your barrier — it comes from feeding it pure botanical nourishment."
+                "Healthy melanin skin does not come from stripping your barrier with harsh bleaches — it comes from understanding skin biochemistry and feeding it bioactive botanical nourishment."
                 <footer className="font-mono text-[11px] text-[#7b7366] uppercase tracking-wider not-italic mt-2">
-                  — Mary Asuquo, Founder
+                  — Mary Asuquo, Biochemist & Founder
                 </footer>
               </blockquote>
             </div>

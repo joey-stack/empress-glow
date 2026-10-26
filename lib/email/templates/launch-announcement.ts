@@ -132,7 +132,7 @@ To unsubscribe from marketing broadcasts: ${unsubscribeUrl}
                 Need personal advice on choosing the best routine for your skin?
                 <br>
                 <a href="${whatsappUrl}" style="color: #2d5508; font-weight: 600; text-decoration: underline;">
-                  Chat with Mary on WhatsApp for a Complimentary Consultation
+                  Chat with Mary on WhatsApp for a Personalized Consultation
                 </a>
               </p>
             </td>

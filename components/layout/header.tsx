@@ -15,26 +15,6 @@ export function Header() {
   return (
     <>
       <header className="sticky top-0 z-40 w-full bg-[#f7f1e8]/95 backdrop-blur-md border-b border-[#e5dcd0] transition-all">
-        {/* Top Minimal Ticker Strip */}
-        <div className="bg-[#131010] text-[#f7f1e8] text-[10px] font-mono uppercase tracking-[0.22em] py-2 px-4 text-center">
-          <div className="max-w-7xl mx-auto flex items-center justify-between sm:justify-center gap-4">
-            <span>
-              {isLive
-                ? 'Official Store Live • Handcrafted in Abuja • Free Delivery over ₦25,000'
-                : 'Pre-Launch Reservation Open • Handcrafted in Abuja'}
-            </span>
-            <span className="hidden sm:inline text-[#2d5508]">•</span>
-            <a
-              href="https://wa.me/2348035650299"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[#5a8210] hover:text-[#f7f1e8] transition-colors underline-offset-4 hover:underline"
-            >
-              Direct WhatsApp Skin Care
-            </a>
-          </div>
-        </div>
-
         {/* Orla Skin Reference Minimalist Navigation Bar */}
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 sm:h-22 flex items-center justify-between">
           {/* Left: Minimal Menu Button */}
@@ -214,7 +194,7 @@ export function Header() {
                     Our Heritage
                   </Link>
                   <p className="font-mono text-xs text-[#7b7366] mt-1">
-                    Meet Mary Udoh & artisanal Abuja craft
+                    Meet Mary Asuquo & artisanal Abuja craft
                   </p>
                 </div>
 

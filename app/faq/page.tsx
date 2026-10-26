@@ -28,7 +28,7 @@ export default function FaqPage() {
       category: 'Ingredient Transparency',
       question: 'Do any of your products contain bleaching agents or hydroquinone?',
       answer:
-        'Never. We hold a strict zero-tolerance policy against hydroquinone, steroids, mercury, and synthetic bleaching agents. Our philosophy is founded on natural, authentic skin radiance and long-term barrier health. As Mary Udoh affirms: "....Own your spot."',
+        'Never. We hold a strict zero-tolerance policy against hydroquinone, steroids, mercury, and synthetic bleaching agents. Our philosophy is founded on natural, authentic skin radiance and long-term barrier health. As Mary Asuquo affirms: "....Own your spot."',
     },
     {
       category: 'Prelaunch & Ordering',
@@ -44,7 +44,7 @@ export default function FaqPage() {
     },
     {
       category: 'Direct Consultation',
-      question: 'How do I arrange a personalized consultation with Mary Udoh?',
+      question: 'How do I arrange a personalized consultation with Mary Asuquo?',
       answer:
         'You can reach Mary directly on WhatsApp via +234 803 565 0299. Mary offers one-on-one routine advice to help you select the ideal complementary regimen for your skin’s specific needs and local climate.',
     },

@@ -96,7 +96,7 @@ export default async function HomePage() {
               </div>
 
               <div className="pt-2 flex items-center justify-between font-mono text-[10px] text-[#f7f1e8]/70 border-t border-white/15">
-                <span>Founded by Mary Asuquo</span>
+                <span>Founded by Mary Asuquo • Biochemist</span>
                 <span className="text-[#5a8210]">Cold-Pressed Batch 04</span>
               </div>
             </div>
@@ -153,7 +153,7 @@ export default async function HomePage() {
         <div className="absolute inset-0 w-full h-full z-0">
           <Image
             src="/images/mary-1.png"
-            alt="Mary Asuquo, Founder & Master Formulator of Empress Glow Emporium"
+            alt="Mary Asuquo, Biochemist & Founder of Empress Glow Emporium"
             fill
             sizes="100vw"
             priority={false}
@@ -168,7 +168,7 @@ export default async function HomePage() {
         <div className="relative z-10 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-8 sm:pt-12 flex justify-start">
           <div className="inline-flex items-center gap-2 font-mono text-[9px] sm:text-[10px] uppercase tracking-[0.25em] px-3.5 py-1.5 bg-black/50 backdrop-blur-md border border-white/20 text-[#f7f1e8] rounded-none">
             <span className="w-1.5 h-1.5 rounded-none bg-[#5a8210] animate-pulse" />
-            <span>Our Heritage • Abuja, Nigeria</span>
+            <span>Biochemist-Formulated • Abuja, Nigeria</span>
           </div>
         </div>
 
@@ -181,7 +181,7 @@ export default async function HomePage() {
                 The Founder's Journey
               </span>
               <p className="text-sm sm:text-base text-[#f7f1e8]/90 font-light leading-relaxed max-w-xl">
-                Founded in Abuja on March 20, 2021 by Mary Asuquo. Frustrated by harsh chemical bleaches that compromised African skin barriers, Mary returned to indigenous fruit preparations and cold-pressing traditions — crafting bioactive enzyme soaps that gently renew and nourish melanin skin.
+                Started in her second year at university, biochemist Mary Asuquo watched young women continuously battling acne, hyperpigmentation, and blackheads. Driven by scientific inquiry, she formulated bioactive recipes using fresh fruit enzymes and cold-pressed botanical lipids to manage skin concerns and nourish melanin barriers without harsh bleaches.
               </p>
               <p className="font-script text-2xl sm:text-3xl text-[#5a8210] pt-1">
                 &ldquo;....Own your spot.&rdquo;

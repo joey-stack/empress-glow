@@ -62,7 +62,7 @@ export default async function ProductsPage() {
             Unsure of Your Routine?
           </span>
           <h2 className="font-serif text-2xl sm:text-3xl text-[#131010]">
-            Speak with Mary Udoh on WhatsApp
+            Speak with Mary Asuquo on WhatsApp
           </h2>
           <p className="text-xs sm:text-sm text-[#524b42] leading-relaxed">
             Every customer is invited to a direct one-on-one routine discussion before reservation dispatch.

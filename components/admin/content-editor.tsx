@@ -66,10 +66,10 @@ export function ContentEditor({ initialContent }: ContentEditorProps) {
         <span className="text-base leading-none">⚠️</span>
         <div className="space-y-1">
           <p className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#b45309]">
-            [PLACEHOLDER] Audit Warning &bull; 4 Unconfirmed Business Attributes
+            [PLACEHOLDER] Audit Warning &bull; 3 Unconfirmed Business Attributes
           </p>
           <p className="text-[11px] leading-relaxed text-[#78350f]">
-            Founder identity (<span className="font-semibold underline">Mary Asuquo vs Mary Udoh</span>), physical studio address (<span className="font-semibold underline">Abuja</span>), CAC registration number, and Instagram account are tagged as <span className="font-mono font-bold bg-amber-200/80 px-1 py-0.5 text-[#78350f]">[PLACEHOLDER]</span>. Never publish these attributes to live production marketing without client sign-off.
+            Founder identity confirmed as <span className="font-semibold underline">Mary Asuquo</span>. Physical studio address (<span className="font-semibold underline">Abuja</span>), CAC registration number, and Instagram account remain tagged as <span className="font-mono font-bold bg-amber-200/80 px-1 py-0.5 text-[#78350f]">[PLACEHOLDER]</span>. Never publish these attributes to live production marketing without client sign-off.
           </p>
         </div>
       </div>
@@ -147,9 +147,13 @@ export function ContentEditor({ initialContent }: ContentEditorProps) {
                 <label className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#7b7366]">
                   Founder Name
                 </label>
-                {content.about_story?.founder_placeholder && (
+                {content.about_story?.founder_placeholder ? (
                   <span className="font-mono text-[9px] uppercase tracking-wider bg-amber-100 text-amber-900 border border-amber-300 px-2 py-0.5">
                     ⚠️ PLACEHOLDER &bull; Pending Sign-off
+                  </span>
+                ) : (
+                  <span className="font-mono text-[9px] uppercase tracking-wider bg-emerald-100 text-emerald-900 border border-emerald-300 px-2 py-0.5">
+                    ✓ Verified by Client
                   </span>
                 )}
               </div>
@@ -160,7 +164,7 @@ export function ContentEditor({ initialContent }: ContentEditorProps) {
                 className="w-full px-4 py-2.5 border border-[#e5dcd0] bg-[#faf8f5] focus:bg-white focus:border-[#2d5508] text-sm text-[#131010] outline-none"
               />
               <p className="font-mono text-[10px] text-[#7b7366] mt-1">
-                Currently set to Mary Asuquo. Tagged as placeholder until confirmed between Mary Asuquo / Mary Udoh.
+                Confirmed: Mary Asuquo (Founder & Biochemist).
               </p>
             </div>
 

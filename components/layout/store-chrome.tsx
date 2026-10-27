@@ -16,7 +16,7 @@ export function StoreChrome({ children }: { children: React.ReactNode }) {
 
   if (isAdmin || isAuthPage) {
     return (
-      <div className={`min-h-screen w-full ${isAuthPage ? 'bg-[#faf6f0]' : 'bg-[#f6f6f7]'} text-[#1a1a1a]`}>
+      <div className={`min-h-screen w-full ${isAuthPage ? 'bg-[#ede5d8]' : 'bg-[#f6f6f7]'} text-[#1a1a1a]`}>
         {children}
       </div>
     );

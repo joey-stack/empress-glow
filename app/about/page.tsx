@@ -26,7 +26,7 @@ export default function AboutPage() {
     {
       title: 'Ethical Nigerian Craftsmanship',
       description:
-        'Proudly handcrafted in Abuja in artisanal small batches. We source indigenous botanicals sustainably from local growers, ensuring freshness and zero animal testing.',
+        'Proudly handcrafted in Abuja in artisanal small batches. We source indigenous botanicals sustainably from local growers, ensuring freshness and natural vitality.',
     },
     {
       title: 'Radical Care & Direct Consultation',

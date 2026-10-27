@@ -1,12 +1,45 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { useCart } from '@/lib/cart/cart-context';
+import { CheckoutAuthModal } from '@/components/checkout/checkout-auth-modal';
 
 export function CartDrawer() {
+  const router = useRouter();
   const { items, isCartOpen, setIsCartOpen, removeItem, updateQuantity, subtotal, itemCount } = useCart();
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    if (isCartOpen) {
+      fetch('/api/account')
+        .then((r) => setIsAuthenticated(r.ok))
+        .catch(() => setIsAuthenticated(false));
+    }
+  }, [isCartOpen]);
+
+  const handleCheckoutClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const hasChosenGuest = typeof window !== 'undefined' && sessionStorage.getItem('empress_checkout_guest') === 'true';
+    if (!isAuthenticated && !hasChosenGuest) {
+      setShowAuthModal(true);
+    } else {
+      setIsCartOpen(false);
+      router.push('/checkout');
+    }
+  };
+
+  const handleContinueAsGuest = () => {
+    if (typeof window !== 'undefined') {
+      sessionStorage.setItem('empress_checkout_guest', 'true');
+    }
+    setShowAuthModal(false);
+    setIsCartOpen(false);
+    router.push('/checkout');
+  };
 
   if (!isCartOpen) return null;
 
@@ -163,13 +196,13 @@ export function CartDrawer() {
               </div>
 
               <div className="space-y-2.5 pt-2">
-                <Link
-                  href="/checkout"
-                  onClick={() => setIsCartOpen(false)}
+                <button
+                  type="button"
+                  onClick={handleCheckoutClick}
                   className="w-full py-4 bg-[#2d5508] hover:bg-[#5a8210] text-white font-mono text-xs font-medium rounded-none transition-colors flex items-center justify-center gap-2 uppercase tracking-[0.2em]"
                 >
                   <span>Checkout Now • ₦{subtotal.toLocaleString()}</span>
-                </Link>
+                </button>
 
                 <Link
                   href="/cart"
@@ -187,6 +220,12 @@ export function CartDrawer() {
           )}
         </div>
       </div>
+
+      <CheckoutAuthModal
+        isOpen={showAuthModal}
+        onClose={() => setShowAuthModal(false)}
+        onContinueAsGuest={handleContinueAsGuest}
+      />
     </div>
   );
 }

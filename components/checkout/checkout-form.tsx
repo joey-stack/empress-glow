@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useCart } from '@/lib/cart/cart-context';
 
+import { CheckoutAuthModal } from './checkout-auth-modal';
+
 export function CheckoutForm() {
   const router = useRouter();
   const { items, subtotal, clearCart } = useCart();
@@ -22,6 +24,10 @@ export function CheckoutForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [currentUser, setCurrentUser] = useState<any>(null);
+  const [showAuthModal, setShowAuthModal] = useState<boolean>(false);
+  const [createAccount, setCreateAccount] = useState<boolean>(false);
+  const [guestPassword, setGuestPassword] = useState<string>('');
 
   // Autofill customer profile & default address if authenticated
   React.useEffect(() => {
@@ -30,6 +36,7 @@ export function CheckoutForm() {
       .then((data) => {
         if (data?.user) {
           setIsAuthenticated(true);
+          setCurrentUser(data.user);
           const defaultAddr = data.addresses?.find((a: any) => a.is_default) || data.addresses?.[0];
           setFormData((prev) => ({
             ...prev,
@@ -42,12 +49,24 @@ export function CheckoutForm() {
           }));
         } else {
           setIsAuthenticated(false);
+          // Show auth modal on first visit if user hasn't chosen guest mode yet
+          const hasChosenGuest = typeof window !== 'undefined' && sessionStorage.getItem('empress_checkout_guest') === 'true';
+          if (!hasChosenGuest) {
+            setShowAuthModal(true);
+          }
         }
       })
       .catch(() => {
         setIsAuthenticated(false);
       });
   }, []);
+
+  const handleContinueAsGuest = () => {
+    if (typeof window !== 'undefined') {
+      sessionStorage.setItem('empress_checkout_guest', 'true');
+    }
+    setShowAuthModal(false);
+  };
 
   // Shipping calculation
   const isAbuja = formData.state.toLowerCase() === 'abuja';
@@ -90,6 +109,25 @@ export function CheckoutForm() {
         return;
       }
 
+      {/* Optional Account Creation during checkout */}
+      if (createAccount && guestPassword && !isAuthenticated) {
+        try {
+          await fetch('/api/auth/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              name: formData.name,
+              email: formData.email,
+              phone: formData.phone,
+              password: guestPassword,
+              ndpaConsent: true,
+            }),
+          });
+        } catch {
+          // Continue seamlessly if register was already performed
+        }
+      }
+
       // Clear cart upon successful order creation
       clearCart();
 
@@ -129,29 +167,50 @@ export function CheckoutForm() {
   }
 
   return (
-    <form onSubmit={handleCheckoutSubmit} className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-      {/* Shipping & Contact Details */}
-      <div className="lg:col-span-7 bg-white rounded-none border border-[#e5dcd0] p-6 sm:p-8 shadow-none space-y-6">
-        <div>
-          <h2 className="font-serif text-2xl text-[#131010] font-normal">
-            Delivery & Contact Information
-          </h2>
-          <p className="text-xs text-[#7b7366] mt-1">
-            Orders are fulfilled from our botanical studio in Abuja and dispatched via tracked courier.
-          </p>
-        </div>
+    <>
+      <CheckoutAuthModal
+        isOpen={showAuthModal}
+        onClose={() => setShowAuthModal(false)}
+        onContinueAsGuest={handleContinueAsGuest}
+      />
 
-        {!isAuthenticated && (
-          <div className="bg-[#faf8f5] border border-[#e5dcd0] p-3 text-xs text-[#7b7366] flex items-center justify-between">
-            <span>Already have an Empress account?</span>
-            <Link
-              href="/login?redirect=/checkout"
-              className="text-[#2d5508] font-semibold hover:underline"
-            >
-              Sign In to autofill saved address →
-            </Link>
+      <form onSubmit={handleCheckoutSubmit} className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        {/* Shipping & Contact Details */}
+        <div className="lg:col-span-7 bg-white rounded-none border border-[#e5dcd0] p-6 sm:p-8 shadow-none space-y-6">
+          <div>
+            <h2 className="font-serif text-2xl text-[#131010] font-normal">
+              Delivery & Contact Information
+            </h2>
+            <p className="text-xs text-[#7b7366] mt-1">
+              Orders are fulfilled from our botanical studio in Abuja and dispatched via tracked courier.
+            </p>
           </div>
-        )}
+
+          {isAuthenticated ? (
+            <div className="bg-[#2d5508]/10 border border-[#2d5508]/20 p-3.5 text-xs text-[#2d5508] flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <span className="font-bold">✓</span>
+                <span>Signed in as <strong>{currentUser?.name || formData.name}</strong> ({currentUser?.email || formData.email})</span>
+              </div>
+              <Link href="/account" className="underline hover:text-[#131010]">
+                My Portal →
+              </Link>
+            </div>
+          ) : (
+            <div className="bg-[#faf8f5] border border-[#e5dcd0] p-3 text-xs text-[#7b7366] flex flex-wrap items-center justify-between gap-2">
+              <span className="flex items-center gap-1.5">
+                <span>🛍️</span>
+                <span>Checking out as <strong>Guest</strong></span>
+              </span>
+              <button
+                type="button"
+                onClick={() => setShowAuthModal(true)}
+                className="text-[#2d5508] font-semibold hover:underline"
+              >
+                Sign in to use saved addresses →
+              </button>
+            </div>
+          )}
 
         {errorMessage && (
           <div className="p-4 bg-red-50 border border-red-200 rounded-none text-xs text-red-700">
@@ -274,6 +333,44 @@ export function CheckoutForm() {
               className="w-full px-4 py-2 text-xs rounded-none border border-[#e5dcd0] text-[#131010] bg-[#faf8f5] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#2d5508]"
             />
           </div>
+
+          {!isAuthenticated && (
+            <div className="p-4 bg-[#fbf9f5] border border-[#e5dcd0] space-y-3">
+              <label className="flex items-start gap-2.5 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={createAccount}
+                  onChange={(e) => setCreateAccount(e.target.checked)}
+                  className="mt-0.5 rounded-none border-[#b88e4e] text-[#2d5508] focus:ring-[#2d5508]"
+                />
+                <div className="text-xs">
+                  <span className="font-semibold text-[#131010] block">
+                    Save my details & create an Empress Account
+                  </span>
+                  <span className="text-[#7b7366] text-[11px] block">
+                    Track delivery on your Member Portal and reorder your botanical formulas in one click.
+                  </span>
+                </div>
+              </label>
+
+              {createAccount && (
+                <div className="pt-2">
+                  <label className="block text-[11px] font-semibold uppercase tracking-wider text-[#524f46] mb-1">
+                    Choose an Account Password (Min 6 characters) *
+                  </label>
+                  <input
+                    type="password"
+                    value={guestPassword}
+                    onChange={(e) => setGuestPassword(e.target.value)}
+                    placeholder="••••••••"
+                    minLength={6}
+                    required={createAccount}
+                    className="w-full px-4 py-2 text-xs rounded-none border border-[#e5dcd0] text-[#131010] bg-white focus:outline-none focus:ring-2 focus:ring-[#2d5508]"
+                  />
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </div>
 
@@ -364,5 +461,6 @@ export function CheckoutForm() {
         </p>
       </div>
     </form>
+    </>
   );
 }

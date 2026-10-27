@@ -1,12 +1,41 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { useCart } from '@/lib/cart/cart-context';
+import { CheckoutAuthModal } from '@/components/checkout/checkout-auth-modal';
 
 export function CartView() {
+  const router = useRouter();
   const { items, removeItem, updateQuantity, clearCart, subtotal, itemCount } = useCart();
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+
+  React.useEffect(() => {
+    fetch('/api/account')
+      .then((r) => setIsAuthenticated(r.ok))
+      .catch(() => setIsAuthenticated(false));
+  }, []);
+
+  const handleProceedToCheckout = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const hasChosenGuest = typeof window !== 'undefined' && sessionStorage.getItem('empress_checkout_guest') === 'true';
+    if (!isAuthenticated && !hasChosenGuest) {
+      setShowAuthModal(true);
+    } else {
+      router.push('/checkout');
+    }
+  };
+
+  const handleContinueAsGuest = () => {
+    if (typeof window !== 'undefined') {
+      sessionStorage.setItem('empress_checkout_guest', 'true');
+    }
+    setShowAuthModal(false);
+    router.push('/checkout');
+  };
 
   const FREE_SHIPPING_THRESHOLD = 25000;
   const progressPercent = Math.min(100, (subtotal / FREE_SHIPPING_THRESHOLD) * 100);
@@ -169,12 +198,13 @@ export function CartView() {
         </div>
 
         <div className="space-y-3 pt-2">
-          <Link
-            href="/checkout"
+          <button
+            type="button"
+            onClick={handleProceedToCheckout}
             className="w-full py-4 bg-[#2d5508] hover:bg-[#5a8210] text-white font-mono text-xs uppercase tracking-[0.2em] rounded-none transition-colors flex items-center justify-center gap-2"
           >
             <span>Proceed to Checkout →</span>
-          </Link>
+          </button>
 
           <Link
             href="/shop"
@@ -196,6 +226,12 @@ export function CartView() {
           </p>
         </div>
       </div>
+
+      <CheckoutAuthModal
+        isOpen={showAuthModal}
+        onClose={() => setShowAuthModal(false)}
+        onContinueAsGuest={handleContinueAsGuest}
+      />
     </div>
   );
 }

@@ -4,25 +4,6 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
-interface CustomerPreset {
-  name: string;
-  email: string;
-  note: string;
-}
-
-const DEMO_CUSTOMERS: CustomerPreset[] = [
-  {
-    name: 'Amina Bello',
-    email: 'amina.bello@example.com',
-    note: 'Returning VIP Customer (Abuja FCT)',
-  },
-  {
-    name: 'Chidinma Okafor',
-    email: 'chidinma.okafor@example.com',
-    note: 'Active Subscriber (Lagos)',
-  },
-];
-
 export default function LoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState('');
@@ -30,12 +11,6 @@ export default function LoginPage() {
   const [rememberMe, setRememberMe] = useState(true);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
-  const fillCustomerPreset = (customerEmail: string) => {
-    setEmail(customerEmail);
-    setPassword('password123');
-    setError(null);
-  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -65,49 +40,31 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-[85vh] flex items-center justify-center py-16 px-4 sm:px-6 lg:px-8 bg-[#faf6f0]">
-      <div className="max-w-md w-full space-y-8 bg-white p-8 sm:p-10 rounded-none border border-[#e5dcd0] shadow-sm">
+    <div className="min-h-screen flex flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-[#faf6f0]">
+      {/* Brand Header */}
+      <div className="mb-6 text-center">
+        <Link href="/" className="inline-block group">
+          <span className="font-serif text-2xl sm:text-3xl tracking-[0.2em] text-[#131010] uppercase group-hover:text-[#2d5508] transition-colors">
+            Empress Glow
+          </span>
+          <span className="block font-mono text-[9px] uppercase tracking-[0.3em] text-[#7b7366] mt-1">
+            Botanical Emporium
+          </span>
+        </Link>
+      </div>
+
+      <div className="max-w-md w-full space-y-6 bg-white p-8 sm:p-10 rounded-none border border-[#e5dcd0] shadow-sm">
         {/* Header */}
         <div className="text-center">
           <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#2d5508] block">
-            Empress Member Access
+            Member Access
           </span>
-          <h1 className="mt-2 text-2xl sm:text-3xl font-serif text-[#131010]">
-            Sign In to Empress Glow
+          <h1 className="mt-1 text-2xl sm:text-3xl font-serif text-[#131010]">
+            Sign In
           </h1>
           <p className="mt-2 font-mono text-xs text-[#7b7366]">
             Access your order history, delivery addresses, and personal botanical care.
           </p>
-        </div>
-
-        {/* InsForge Customer Preset Accounts */}
-        <div className="bg-[#faf6f0] border border-[#e5dcd0] p-3.5 space-y-2">
-          <div className="flex items-center justify-between">
-            <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-[#2d5508] font-bold flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#2d5508] animate-pulse" />
-              InsForge Authenticated Member Accounts
-            </span>
-            <span className="font-mono text-[9px] text-[#7b7366]">
-              Native InsForge BaaS Auth
-            </span>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-            {DEMO_CUSTOMERS.map((cust) => (
-              <button
-                key={cust.email}
-                type="button"
-                onClick={() => fillCustomerPreset(cust.email)}
-                className={`text-left p-2 border font-mono text-xs transition-colors ${
-                  email === cust.email
-                    ? 'border-[#2d5508] bg-white text-[#2d5508] font-semibold'
-                    : 'border-[#e5dcd0] bg-white hover:border-[#2d5508] text-[#131010]'
-                }`}
-              >
-                <div className="truncate font-medium">{cust.name}</div>
-                <div className="text-[9px] text-[#7b7366] truncate">{cust.note}</div>
-              </button>
-            ))}
-          </div>
         </div>
 
         {/* Error Alert */}
@@ -128,7 +85,7 @@ export default function LoginPage() {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="e.g. amina.bello@example.com"
+              placeholder="e.g. yourname@example.com"
               className="w-full px-4 py-3 rounded-none border border-[#e5dcd0] focus:outline-none focus:border-[#2d5508] font-mono text-xs text-[#131010] bg-white"
             />
           </div>
@@ -232,6 +189,16 @@ export default function LoginPage() {
             </Link>
           </div>
         </div>
+      </div>
+
+      {/* Return to store */}
+      <div className="mt-6 text-center">
+        <Link
+          href="/"
+          className="font-mono text-xs text-[#7b7366] hover:text-[#131010] transition-colors inline-flex items-center gap-1.5"
+        >
+          <span>←</span> Back to Store
+        </Link>
       </div>
     </div>
   );

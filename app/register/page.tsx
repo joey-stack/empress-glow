@@ -59,14 +59,26 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-[85vh] flex items-center justify-center py-16 px-4 sm:px-6 lg:px-8 bg-[#faf6f0]">
-      <div className="max-w-md w-full space-y-8 bg-white p-8 sm:p-10 rounded-none border border-[#e5dcd0]">
+    <div className="min-h-screen flex flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-[#faf6f0]">
+      {/* Brand Header */}
+      <div className="mb-6 text-center">
+        <Link href="/" className="inline-block group">
+          <span className="font-serif text-2xl sm:text-3xl tracking-[0.2em] text-[#131010] uppercase group-hover:text-[#2d5508] transition-colors">
+            Empress Glow
+          </span>
+          <span className="block font-mono text-[9px] uppercase tracking-[0.3em] text-[#7b7366] mt-1">
+            Botanical Emporium
+          </span>
+        </Link>
+      </div>
+
+      <div className="max-w-md w-full space-y-6 bg-white p-8 sm:p-10 rounded-none border border-[#e5dcd0] shadow-sm">
         <div className="text-center">
           <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#2d5508] block">
             Join The Empress Family
           </span>
-          <h1 className="mt-2 text-2xl sm:text-3xl font-serif text-[#131010]">
-            Create Empress Account
+          <h1 className="mt-1 text-2xl sm:text-3xl font-serif text-[#131010]">
+            Create Account
           </h1>
           <p className="mt-2 font-mono text-xs text-[#7b7366]">
             Create your personal customer profile for saved addresses, order tracking, and tailored botanical rituals.
@@ -230,6 +242,16 @@ export default function RegisterPage() {
             </Link>
           </p>
         </div>
+      </div>
+
+      {/* Return to store */}
+      <div className="mt-6 text-center">
+        <Link
+          href="/"
+          className="font-mono text-xs text-[#7b7366] hover:text-[#131010] transition-colors inline-flex items-center gap-1.5"
+        >
+          <span>←</span> Back to Store
+        </Link>
       </div>
     </div>
   );

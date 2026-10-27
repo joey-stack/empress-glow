@@ -12,9 +12,14 @@ import { CartProvider } from '@/lib/cart/cart-context';
 export function StoreChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isAdmin = pathname?.startsWith('/admin');
+  const isAuthPage = pathname === '/login' || pathname === '/register';
 
-  if (isAdmin) {
-    return <div className="min-h-screen w-full bg-[#f6f6f7] text-[#1a1a1a]">{children}</div>;
+  if (isAdmin || isAuthPage) {
+    return (
+      <div className={`min-h-screen w-full ${isAuthPage ? 'bg-[#faf6f0]' : 'bg-[#f6f6f7]'} text-[#1a1a1a]`}>
+        {children}
+      </div>
+    );
   }
 
   return (

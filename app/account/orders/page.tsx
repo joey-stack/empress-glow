@@ -9,12 +9,12 @@ export default async function OrderHistoryPage() {
   const session = await getSessionUser();
 
   if (!session) {
-    redirect('/login');
+    redirect('/login?redirect=/account/orders');
   }
 
   const user = await getUserById(session.id);
   if (!user) {
-    redirect('/login');
+    redirect('/login?redirect=/account/orders');
   }
 
   const orders = await getOrdersByCustomerEmail(user.email);

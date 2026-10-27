@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { getSafeRedirectUrl } from '@/lib/auth/redirect';
 
 const BRAND_SLIDES = [
   {
@@ -33,6 +34,9 @@ interface AuthPageProps {
 export default function LoginPage({ initialMode = 'signin' }: AuthPageProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
+
+  // Redirect destination extraction (?redirect=/checkout, ?returnTo=..., ?next=...)
+  const redirectParam = searchParams.get('redirect') || searchParams.get('returnTo') || searchParams.get('next');
 
   // Mode: 'signin' or 'signup'
   const modeParam = searchParams.get('mode') || searchParams.get('tab');
@@ -64,7 +68,10 @@ export default function LoginPage({ initialMode = 'signin' }: AuthPageProps) {
     setMode(newMode);
     setError(null);
     if (typeof window !== 'undefined') {
-      window.history.replaceState(null, '', newMode === 'signup' ? '/register' : '/login');
+      const url = new URL(window.location.href);
+      url.pathname = newMode === 'signup' ? '/register' : '/login';
+      url.searchParams.set('mode', newMode);
+      window.history.replaceState(null, '', url.pathname + url.search);
     }
   };
 
@@ -77,7 +84,7 @@ export default function LoginPage({ initialMode = 'signin' }: AuthPageProps) {
       const res = await fetch('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email, password, redirect: redirectParam }),
       });
 
       const data = await res.json();
@@ -85,7 +92,7 @@ export default function LoginPage({ initialMode = 'signin' }: AuthPageProps) {
         throw new Error(data.error || 'Failed to sign in. Please verify your credentials.');
       }
 
-      const destination = data.redirectUrl || '/account';
+      const destination = data.redirectUrl || (redirectParam ? getSafeRedirectUrl(redirectParam) : '/account');
       router.push(destination);
       router.refresh();
     } catch (err: any) {
@@ -121,6 +128,7 @@ export default function LoginPage({ initialMode = 'signin' }: AuthPageProps) {
           phone,
           password,
           ndpaConsent,
+          redirect: redirectParam,
         }),
       });
 
@@ -129,7 +137,8 @@ export default function LoginPage({ initialMode = 'signin' }: AuthPageProps) {
         throw new Error(data.error || 'Failed to create account.');
       }
 
-      router.push('/account');
+      const destination = data.redirectUrl || (redirectParam ? getSafeRedirectUrl(redirectParam) : '/account');
+      router.push(destination);
       router.refresh();
     } catch (err: any) {
       setError(err.message || 'Something went wrong during registration.');
@@ -270,7 +279,7 @@ export default function LoginPage({ initialMode = 'signin' }: AuthPageProps) {
           {/* Social Sign-In: Continue with Google */}
           <div className="mb-4">
             <a
-              href="/api/auth/oauth/google"
+              href={redirectParam ? `/api/auth/oauth/google?redirect=${encodeURIComponent(redirectParam)}` : '/api/auth/oauth/google'}
               className="w-full flex items-center justify-center gap-3 bg-white hover:bg-[#faf6f0] text-[#131010] border border-[#e5dcd0] hover:border-[#2d5508] py-2.5 px-4 rounded-xl font-medium text-xs transition-all shadow-xs"
             >
               <svg className="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24">

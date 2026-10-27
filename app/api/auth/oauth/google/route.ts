@@ -31,6 +31,17 @@ export async function GET(request: NextRequest) {
       maxAge: 600,
     });
 
+    const targetRedirect = request.nextUrl.searchParams.get('redirect') || request.nextUrl.searchParams.get('returnTo');
+    if (targetRedirect) {
+      cookieStore.set('insforge_auth_redirect', targetRedirect, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'lax',
+        path: '/',
+        maxAge: 600,
+      });
+    }
+
     return NextResponse.redirect(data.url);
   } catch (err: any) {
     console.error('OAuth initiation exception:', err);

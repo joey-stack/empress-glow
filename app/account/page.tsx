@@ -9,12 +9,12 @@ export default async function AccountPage() {
   const session = await getSessionUser();
 
   if (!session) {
-    redirect('/login');
+    redirect('/login?redirect=/account');
   }
 
   const user = await getUserById(session.id);
   if (!user) {
-    redirect('/login');
+    redirect('/login?redirect=/account');
   }
 
   const addresses = await getUserAddresses(user.id);

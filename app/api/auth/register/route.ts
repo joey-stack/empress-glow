@@ -1,11 +1,12 @@
 import { NextResponse } from 'next/server';
 import { createUser, getUserByEmail } from '@/lib/insforge/queries';
 import { hashPassword, createSession } from '@/lib/auth/session';
+import { getSafeRedirectUrl } from '@/lib/auth/redirect';
 
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { name, email, phone, password, ndpaConsent } = body;
+    const { name, email, phone, password, ndpaConsent, redirect: requestedRedirect } = body;
 
     if (!name || typeof name !== 'string' || name.trim().length < 2) {
       return NextResponse.json({ error: 'Please enter your full name.' }, { status: 400 });
@@ -69,6 +70,7 @@ export async function POST(req: Request) {
     return NextResponse.json(
       {
         success: true,
+        redirectUrl: getSafeRedirectUrl(requestedRedirect, '/account'),
         user: {
           id: user.id,
           name: user.name,

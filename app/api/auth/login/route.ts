@@ -1,11 +1,12 @@
 import { NextResponse } from 'next/server';
 import { getUserByEmail, getStaffUserByEmail } from '@/lib/insforge/queries';
 import { verifyPassword, createSession, AdminRole } from '@/lib/auth/session';
+import { getSafeRedirectUrl } from '@/lib/auth/redirect';
 
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { email, password } = body;
+    const { email, password, redirect: requestedRedirect } = body;
 
     if (!email || !password) {
       return NextResponse.json({ error: 'Please provide both email and password.' }, { status: 400 });
@@ -52,10 +53,20 @@ export async function POST(req: Request) {
           });
         }
 
+        const resolveDestination = (isUserAdmin: boolean) => {
+          if (isUserAdmin) {
+            if (requestedRedirect && typeof requestedRedirect === 'string' && requestedRedirect.startsWith('/admin')) {
+              return getSafeRedirectUrl(requestedRedirect, '/admin');
+            }
+            return '/admin';
+          }
+          return getSafeRedirectUrl(requestedRedirect, '/account');
+        };
+
         return NextResponse.json({
           success: true,
           role,
-          redirectUrl: isAdmin ? '/admin' : '/account',
+          redirectUrl: resolveDestination(isAdmin),
           user: {
             id: ifUser.id,
             name: userName,
@@ -84,10 +95,14 @@ export async function POST(req: Request) {
           role: staff.role,
         });
 
+        const staffRedirect = requestedRedirect && typeof requestedRedirect === 'string' && requestedRedirect.startsWith('/admin')
+          ? getSafeRedirectUrl(requestedRedirect, '/admin')
+          : '/admin';
+
         return NextResponse.json({
           success: true,
           role: staff.role,
-          redirectUrl: '/admin',
+          redirectUrl: staffRedirect,
           user: {
             id: staff.id,
             name: staff.name,
@@ -114,7 +129,7 @@ export async function POST(req: Request) {
         return NextResponse.json({
           success: true,
           role: 'customer',
-          redirectUrl: '/account',
+          redirectUrl: getSafeRedirectUrl(requestedRedirect, '/account'),
           user: {
             id: user.id,
             name: user.name,

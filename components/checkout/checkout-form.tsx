@@ -21,6 +21,7 @@ export function CheckoutForm() {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
   // Autofill customer profile & default address if authenticated
   React.useEffect(() => {
@@ -28,6 +29,7 @@ export function CheckoutForm() {
       .then((r) => (r.ok ? r.json() : null))
       .then((data) => {
         if (data?.user) {
+          setIsAuthenticated(true);
           const defaultAddr = data.addresses?.find((a: any) => a.is_default) || data.addresses?.[0];
           setFormData((prev) => ({
             ...prev,
@@ -38,9 +40,13 @@ export function CheckoutForm() {
             city: defaultAddr?.city || prev.city,
             state: defaultAddr?.state || prev.state,
           }));
+        } else {
+          setIsAuthenticated(false);
         }
       })
-      .catch(() => {});
+      .catch(() => {
+        setIsAuthenticated(false);
+      });
   }, []);
 
   // Shipping calculation
@@ -134,6 +140,18 @@ export function CheckoutForm() {
             Orders are fulfilled from our botanical studio in Abuja and dispatched via tracked courier.
           </p>
         </div>
+
+        {!isAuthenticated && (
+          <div className="bg-[#faf8f5] border border-[#e5dcd0] p-3 text-xs text-[#7b7366] flex items-center justify-between">
+            <span>Already have an Empress account?</span>
+            <Link
+              href="/login?redirect=/checkout"
+              className="text-[#2d5508] font-semibold hover:underline"
+            >
+              Sign In to autofill saved address →
+            </Link>
+          </div>
+        )}
 
         {errorMessage && (
           <div className="p-4 bg-red-50 border border-red-200 rounded-none text-xs text-red-700">

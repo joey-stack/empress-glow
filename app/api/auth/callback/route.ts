@@ -2,6 +2,7 @@ import { NextResponse, type NextRequest } from 'next/server';
 import { cookies } from 'next/headers';
 import { createAuthActions } from '@insforge/sdk/ssr';
 import { createSession, AdminRole } from '@/lib/auth/session';
+import { getSafeRedirectUrl } from '@/lib/auth/redirect';
 
 export async function GET(request: NextRequest) {
   const code = request.nextUrl.searchParams.get('insforge_code');
@@ -52,7 +53,18 @@ export async function GET(request: NextRequest) {
       role,
     });
 
-    const destination = isAdmin ? '/admin' : '/account';
+    const targetRedirectCookie = cookieStore.get('insforge_auth_redirect')?.value;
+    cookieStore.delete('insforge_auth_redirect');
+
+    let destination = isAdmin ? '/admin' : '/account';
+    if (targetRedirectCookie) {
+      if (isAdmin && targetRedirectCookie.startsWith('/admin')) {
+        destination = getSafeRedirectUrl(targetRedirectCookie, '/admin');
+      } else if (!isAdmin) {
+        destination = getSafeRedirectUrl(targetRedirectCookie, '/account');
+      }
+    }
+
     return NextResponse.redirect(new URL(destination, origin));
   } catch (err: any) {
     console.error('OAuth callback exception:', err);

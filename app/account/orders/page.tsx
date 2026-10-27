@@ -1,9 +1,7 @@
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import { getSessionUser } from '@/lib/auth/session';
-import { getUserById, getOrdersByCustomerEmail } from '@/lib/insforge/queries';
-
-export const instant = false;
+import { getUserByEmail, getUserById, getOrdersByCustomerEmail } from '@/lib/insforge/queries';
 
 export default async function OrderHistoryPage() {
   const session = await getSessionUser();
@@ -12,12 +10,13 @@ export default async function OrderHistoryPage() {
     redirect('/login?redirect=/account/orders');
   }
 
-  const user = await getUserById(session.id);
-  if (!user) {
-    redirect('/login?redirect=/account/orders');
+  let user = await getUserById(session.id);
+  if (!user && session.email) {
+    user = await getUserByEmail(session.email);
   }
 
-  const orders = await getOrdersByCustomerEmail(user.email);
+  const customerEmail = user?.email || session.email;
+  const orders = await getOrdersByCustomerEmail(customerEmail);
 
   return (
     <div className="min-h-screen bg-[#f7f1e8] py-10 px-4 sm:px-6 lg:px-8">
@@ -28,7 +27,7 @@ export default async function OrderHistoryPage() {
               ← Back to Account Dashboard
             </Link>
             <h1 className="text-2xl font-serif text-[#131010] mt-1">My Order History</h1>
-            <p className="text-xs text-[#7b7366]">Purchases registered to {user.email}</p>
+            <p className="text-xs text-[#7b7366]">Purchases registered to {customerEmail}</p>
           </div>
           <Link
             href="/products"

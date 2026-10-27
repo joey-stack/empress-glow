@@ -67,6 +67,7 @@ export function Header() {
                 {/* User Profile / Account Icon */}
                 <Link
                   href="/account"
+                  prefetch={false}
                   aria-label="Account Profile"
                   className="p-2 text-[#131010] hover:text-[#2d5508] transition-colors focus:outline-none"
                 >

@@ -1,9 +1,7 @@
 import { redirect } from 'next/navigation';
 import { getSessionUser } from '@/lib/auth/session';
-import { getUserById, getUserAddresses, getOrdersByCustomerEmail } from '@/lib/insforge/queries';
+import { getUserByEmail, getUserById, getUserAddresses, getOrdersByCustomerEmail, UserProfile } from '@/lib/insforge/queries';
 import { AccountDashboard } from '@/components/account/account-dashboard';
-
-export const instant = false;
 
 export default async function AccountPage() {
   const session = await getSessionUser();
@@ -12,24 +10,35 @@ export default async function AccountPage() {
     redirect('/login?redirect=/account');
   }
 
-  const user = await getUserById(session.id);
-  if (!user) {
-    redirect('/login?redirect=/account');
+  let user: UserProfile | null = await getUserById(session.id);
+  if (!user && session.email) {
+    user = await getUserByEmail(session.email);
   }
 
-  const addresses = await getUserAddresses(user.id);
-  const orders = await getOrdersByCustomerEmail(user.email);
+  // Fallback profile if authenticated via InsForge BaaS or OAuth
+  const activeUser: UserProfile = user || {
+    id: session.id,
+    email: session.email,
+    name: session.name || session.email.split('@')[0],
+    phone: '+234 800 000 0000',
+    password_hash: '',
+    created_at: new Date().toISOString(),
+    ndpa_consent_at: new Date().toISOString(),
+  };
+
+  const addresses = await getUserAddresses(activeUser.id);
+  const orders = await getOrdersByCustomerEmail(activeUser.email);
 
   return (
     <div className="min-h-screen bg-[#faf9f7] py-8">
       <AccountDashboard
         initialUser={{
-          id: user.id,
-          email: user.email,
-          name: user.name,
-          phone: user.phone,
-          created_at: user.created_at,
-          ndpa_consent_at: user.ndpa_consent_at,
+          id: activeUser.id,
+          email: activeUser.email,
+          name: activeUser.name,
+          phone: activeUser.phone,
+          created_at: activeUser.created_at,
+          ndpa_consent_at: activeUser.ndpa_consent_at,
         }}
         initialAddresses={addresses}
         initialOrders={orders}

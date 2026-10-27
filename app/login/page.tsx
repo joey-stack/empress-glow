@@ -80,14 +80,15 @@ export default function LoginPage() {
           </p>
         </div>
 
-        {/* 1-Click Customer Demo Pills */}
+        {/* InsForge Customer Preset Accounts */}
         <div className="bg-[#faf6f0] border border-[#e5dcd0] p-3.5 space-y-2">
           <div className="flex items-center justify-between">
-            <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-[#2d5508] font-bold">
-              1-Click Demo Profiles
+            <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-[#2d5508] font-bold flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#2d5508] animate-pulse" />
+              InsForge Authenticated Member Accounts
             </span>
             <span className="font-mono text-[9px] text-[#7b7366]">
-              Instant Autofill
+              Native InsForge BaaS Auth
             </span>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">

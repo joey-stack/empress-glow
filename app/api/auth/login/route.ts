@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getUserByEmail, getStaffUserByEmail } from '@/lib/insforge/queries';
-import { verifyPassword, createSession } from '@/lib/auth/session';
+import { verifyPassword, createSession, AdminRole } from '@/lib/auth/session';
 
 export async function POST(req: Request) {
   try {
@@ -13,7 +13,63 @@ export async function POST(req: Request) {
 
     const cleanEmail = email.toLowerCase().trim();
 
-    // 1. Check if email belongs to an Admin Staff Member
+    // 1. PRIMARY: Authenticate against InsForge BaaS Auth Engine
+    try {
+      const { insforge } = await import('@/lib/insforge/client');
+      const { data: ifData, error: ifError } = await insforge.auth.signInWithPassword({
+        email: cleanEmail,
+        password,
+      });
+
+      if (!ifError && ifData?.user) {
+        const ifUser = ifData.user;
+        const metadata = (ifUser.metadata || {}) as Record<string, any>;
+        const rawRole = metadata.role || 'customer';
+        const role: AdminRole | 'customer' = ['super_admin', 'inventory_manager', 'support_staff', 'read_only'].includes(rawRole)
+          ? (rawRole as AdminRole)
+          : 'customer';
+        const userName = ifUser.profile?.name || metadata.name || cleanEmail.split('@')[0];
+        const title = metadata.title || (role === 'customer' ? 'Empress Member' : 'Empress Staff');
+        const isAdmin = role !== 'customer';
+
+        await createSession({
+          id: ifUser.id,
+          email: ifUser.email || cleanEmail,
+          name: userName,
+          role,
+        });
+
+        // Set InsForge SSR access token cookie
+        if (ifData.accessToken) {
+          const { cookies } = await import('next/headers');
+          const cookieStore = await cookies();
+          cookieStore.set('insforge_access_token', ifData.accessToken, {
+            httpOnly: false,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'lax',
+            path: '/',
+            maxAge: 60 * 60 * 24 * 7,
+          });
+        }
+
+        return NextResponse.json({
+          success: true,
+          role,
+          redirectUrl: isAdmin ? '/admin' : '/account',
+          user: {
+            id: ifUser.id,
+            name: userName,
+            email: ifUser.email || cleanEmail,
+            role,
+            title,
+          },
+        });
+      }
+    } catch (err: any) {
+      console.warn('InsForge sign-in attempt notice:', err?.message || err);
+    }
+
+    // 2. Secondary fallback: Check Admin Staff Member in local store
     const staff = await getStaffUserByEmail(cleanEmail);
     if (staff && staff.status === 'active') {
       const isStaffValid = staff.password_hash
@@ -43,7 +99,7 @@ export async function POST(req: Request) {
       }
     }
 
-    // 2. Check if email belongs to a Registered Customer
+    // 3. Secondary fallback: Check Registered Customer in local store
     const user = await getUserByEmail(cleanEmail);
     if (user) {
       const valid = verifyPassword(password, user.password_hash);
@@ -68,39 +124,6 @@ export async function POST(req: Request) {
           },
         });
       }
-    }
-
-    // 3. Check InsForge BaaS Auth Engine
-    try {
-      const { insforge } = await import('@/lib/insforge/client');
-      const { data: ifData, error: ifError } = await insforge.auth.signInWithPassword({
-        email: cleanEmail,
-        password,
-      });
-
-      if (!ifError && ifData?.user) {
-        const userName = ifData.user.profile?.name || cleanEmail.split('@')[0];
-        await createSession({
-          id: ifData.user.id,
-          email: ifData.user.email || cleanEmail,
-          name: userName,
-          role: 'customer',
-        });
-
-        return NextResponse.json({
-          success: true,
-          role: 'customer',
-          redirectUrl: '/account',
-          user: {
-            id: ifData.user.id,
-            name: userName,
-            email: ifData.user.email || cleanEmail,
-            role: 'customer',
-          },
-        });
-      }
-    } catch {
-      // Continue to 401
     }
 
     // If neither matched or password invalid

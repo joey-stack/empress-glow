@@ -46,14 +46,17 @@ export async function POST(req: Request) {
 
     // Synchronize account with InsForge BaaS Auth engine
     try {
-      const { insforgeAdmin } = await import('@/lib/insforge/admin');
-      await insforgeAdmin.auth.signUp({
+      const { insforge } = await import('@/lib/insforge/client');
+      const signUpRes = await insforge.auth.signUp({
         email: user.email,
         password,
         name: user.name,
       });
+      if (signUpRes.error && !signUpRes.error.message?.includes('already exists')) {
+        console.warn('InsForge BaaS account sync notice:', signUpRes.error.message);
+      }
     } catch (e) {
-      // Continue seamlessly if InsForge cloud verification is queued
+      // Continue seamlessly if InsForge cloud sync notice occurs
       console.warn('InsForge BaaS account sync notice:', e);
     }
 

@@ -56,9 +56,16 @@ export default function AdminLoginPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const STAFF_INSFORGE_CREDENTIALS: Record<string, string> = {
+    'mary@empressglowemporium.com': 'empress_master_2026',
+    'amina.ops@empressglowemporium.com': 'empress_ops_2026',
+    'chukwudi.care@empressglowemporium.com': 'empress_care_2026',
+    'compliance@empressglowemporium.com': 'empress_audit_2026',
+  };
+
   const fillCredentials = (staffEmail: string) => {
     setEmail(staffEmail);
-    setPassword('empress2026');
+    setPassword(STAFF_INSFORGE_CREDENTIALS[staffEmail] || 'empress_master_2026');
     setError(null);
   };
 
@@ -137,11 +144,12 @@ export default function AdminLoginPage() {
           {/* Quick Demo Pill Presets */}
           <div className="bg-[#1a1715] border border-white/10 p-4 space-y-3">
             <div className="flex items-center justify-between">
-              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#a3d95b]">
-                1-Click Staff Presets
+              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#a3d95b] flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#a3d95b] animate-pulse" />
+                InsForge Authenticated Staff Accounts
               </span>
               <span className="font-mono text-[9px] text-[#7b7366]">
-                Click to autofill
+                Native InsForge BaaS Auth
               </span>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">

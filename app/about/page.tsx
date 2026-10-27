@@ -103,7 +103,7 @@ export default function AboutPage() {
           {/* Founder Image */}
           <div className="lg:col-span-5 relative aspect-[4/5] sm:aspect-[3/4] lg:aspect-auto min-h-[460px] lg:min-h-full border-b lg:border-b-0 lg:border-r border-[#e5dcd0] bg-[#faf6f0] overflow-hidden">
             <Image
-              src="/images/mary-founder.jpg?v=2"
+              src="/images/mary-founder.jpg"
               alt="Mary Asuquo, Biochemist & Founder of Empress Glow Emporium"
               fill
               sizes="(max-width: 1024px) 100vw, 42vw"

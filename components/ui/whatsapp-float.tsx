@@ -23,7 +23,7 @@ export function WhatsAppFloat() {
                   alt="Mary Asuquo"
                   fill
                   sizes="40px"
-                  className="object-cover object-top"
+                  className="object-cover object-[center_18%]"
                 />
               </div>
               <div>

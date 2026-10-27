@@ -101,13 +101,14 @@ export default function AboutPage() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
         <div className="border border-[#e5dcd0] bg-white grid grid-cols-1 lg:grid-cols-12 overflow-hidden">
           {/* Founder Image */}
-          <div className="lg:col-span-5 relative aspect-[4/5] sm:aspect-[3/4] lg:aspect-auto min-h-[460px] lg:min-h-full border-b lg:border-b-0 lg:border-r border-[#e5dcd0] bg-[#faf6f0]">
+          <div className="lg:col-span-5 relative aspect-[4/5] sm:aspect-[3/4] lg:aspect-auto min-h-[460px] lg:min-h-full border-b lg:border-b-0 lg:border-r border-[#e5dcd0] bg-[#faf6f0] overflow-hidden">
             <Image
-              src="/images/mary-founder.jpg"
+              src="/images/mary-founder.jpg?v=2"
               alt="Mary Asuquo, Biochemist & Founder of Empress Glow Emporium"
               fill
               sizes="(max-width: 1024px) 100vw, 42vw"
-              className="object-cover object-[center_15%]"
+              className="object-cover object-top"
+              style={{ objectPosition: 'center top' }}
               priority
             />
             <div className="absolute bottom-6 left-6 bg-[#131010]/90 text-[#f7f1e8] font-mono text-[10px] uppercase tracking-[0.2em] px-4 py-2 border border-white/10 backdrop-blur-sm">

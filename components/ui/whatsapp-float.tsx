@@ -19,11 +19,12 @@ export function WhatsAppFloat() {
             <div className="flex items-center gap-3">
               <div className="relative w-10 h-10 overflow-hidden rounded-none border border-white/20 bg-white/10 flex-shrink-0">
                 <Image
-                  src="/images/mary-founder.jpg"
+                  src="/images/mary-founder.jpg?v=2"
                   alt="Mary Asuquo"
                   fill
                   sizes="40px"
-                  className="object-cover object-[center_18%]"
+                  className="object-cover"
+                  style={{ objectPosition: 'center 25%' }}
                 />
               </div>
               <div>

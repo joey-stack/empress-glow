@@ -382,15 +382,20 @@ function getFsAndPaths() {
     try {
       const fs = require('fs');
       const path = require('path');
+      const os = require('os');
       const dataDir = path.join(process.cwd(), 'data');
       if (!fs.existsSync(dataDir)) {
-        fs.mkdirSync(dataDir, { recursive: true });
+        try {
+          fs.mkdirSync(dataDir, { recursive: true });
+        } catch {}
       }
       return {
         fs,
         productsFile: path.join(dataDir, 'products.json'),
         variantsFile: path.join(dataDir, 'variants.json'),
         adjustmentsFile: path.join(dataDir, 'inventory_adjustments.json'),
+        ordersFile: path.join(dataDir, 'orders.json'),
+        tmpOrdersFile: path.join(os.tmpdir(), 'empress_orders.json'),
       };
     } catch {
       return null;
@@ -423,6 +428,23 @@ export function persistStores() {
         JSON.stringify(globalProductsRef.__empress_inventory_adjustments, null, 2),
         'utf-8'
       );
+    }
+    if (globalRef.__empress_orders_store) {
+      try {
+        io.fs.writeFileSync(
+          io.ordersFile,
+          JSON.stringify(globalRef.__empress_orders_store, null, 2),
+          'utf-8'
+        );
+      } catch {
+        try {
+          io.fs.writeFileSync(
+            io.tmpOrdersFile,
+            JSON.stringify(globalRef.__empress_orders_store, null, 2),
+            'utf-8'
+          );
+        } catch {}
+      }
     }
   } catch (err) {
     console.error('[queries.ts] Failed to persist stores to disk:', err);
@@ -480,6 +502,25 @@ function ensureStores() {
     } else {
       globalProductsRef.__empress_inventory_adjustments = [...SEED_INVENTORY_ADJUSTMENTS];
       persistStores();
+    }
+  }
+
+  if (!globalRef.__empress_orders_store || globalRef.__empress_orders_store.length === 0) {
+    if (io) {
+      const fileToRead = io.fs.existsSync(io.ordersFile)
+        ? io.ordersFile
+        : io.fs.existsSync(io.tmpOrdersFile)
+        ? io.tmpOrdersFile
+        : null;
+      if (fileToRead) {
+        try {
+          const raw = io.fs.readFileSync(fileToRead, 'utf-8');
+          const parsed = JSON.parse(raw);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            globalRef.__empress_orders_store = parsed;
+          }
+        } catch {}
+      }
     }
   }
 }
@@ -1364,7 +1405,22 @@ if (!globalRef.__empress_webhook_events) {
   globalRef.__empress_webhook_events = new Set<string>();
 }
 
-const ordersStore: Order[] = globalRef.__empress_orders_store;
+const ordersStore: Order[] = new Proxy([] as Order[], {
+  get(_target, prop) {
+    ensureStores();
+    const actual = globalRef.__empress_orders_store || [];
+    const val = (actual as any)[prop];
+    return typeof val === 'function' ? val.bind(actual) : val;
+  },
+  set(_target, prop, value) {
+    ensureStores();
+    if (!globalRef.__empress_orders_store) {
+      globalRef.__empress_orders_store = [];
+    }
+    (globalRef.__empress_orders_store as any)[prop] = value;
+    return true;
+  },
+});
 const processedWebhookEvents: Set<string> = globalRef.__empress_webhook_events;
 
 
@@ -1498,6 +1554,7 @@ export async function createOrder(data: Omit<Order, 'id' | 'created_at' | 'statu
     fraud_analysis: data.fraud_analysis || evaluateOrderFraudRisk(data),
   };
   ordersStore.unshift(newOrder);
+  persistStores();
   return newOrder;
 }
 
@@ -1529,6 +1586,7 @@ export async function updateOrderFraudVerification(
     order.fraud_analysis.risk_score = Math.min(order.fraud_analysis.risk_score, 10);
   }
 
+  persistStores();
   return order;
 }
 
@@ -1537,11 +1595,53 @@ export async function getAllOrders(): Promise<Order[]> {
 }
 
 export async function getOrderById(id: string): Promise<Order | null> {
-  return ordersStore.find((o) => o.id === id) || null;
+  let found = ordersStore.find((o) => o.id === id);
+  if (!found) {
+    const io = getFsAndPaths();
+    if (io) {
+      const fileToRead = io.fs.existsSync(io.ordersFile)
+        ? io.ordersFile
+        : io.fs.existsSync(io.tmpOrdersFile)
+        ? io.tmpOrdersFile
+        : null;
+      if (fileToRead) {
+        try {
+          const raw = io.fs.readFileSync(fileToRead, 'utf-8');
+          const parsed = JSON.parse(raw);
+          if (Array.isArray(parsed)) {
+            globalRef.__empress_orders_store = parsed;
+            found = parsed.find((o: Order) => o.id === id);
+          }
+        } catch {}
+      }
+    }
+  }
+  return found || null;
 }
 
 export async function getOrderByReference(reference: string): Promise<Order | null> {
-  return ordersStore.find((o) => o.paystack_reference === reference) || null;
+  let found = ordersStore.find((o) => o.paystack_reference === reference);
+  if (!found) {
+    const io = getFsAndPaths();
+    if (io) {
+      const fileToRead = io.fs.existsSync(io.ordersFile)
+        ? io.ordersFile
+        : io.fs.existsSync(io.tmpOrdersFile)
+        ? io.tmpOrdersFile
+        : null;
+      if (fileToRead) {
+        try {
+          const raw = io.fs.readFileSync(fileToRead, 'utf-8');
+          const parsed = JSON.parse(raw);
+          if (Array.isArray(parsed)) {
+            globalRef.__empress_orders_store = parsed;
+            found = parsed.find((o: Order) => o.paystack_reference === reference);
+          }
+        } catch {}
+      }
+    }
+  }
+  return found || null;
 }
 
 export async function updateOrderStatus(
@@ -1558,6 +1658,7 @@ export async function updateOrderStatus(
   }
   if (paidAt) order.paid_at = paidAt;
   if (reference) order.paystack_reference = reference;
+  persistStores();
   return order;
 }
 

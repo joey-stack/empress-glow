@@ -30,6 +30,5 @@ export function isProductLiveCommerce(
   product?: { vendor?: string } | null,
   currentSitePhase: string = SITE_PHASE
 ): boolean {
-  if (currentSitePhase !== 'live') return false;
-  return !isEmpressGlowBrand(product?.vendor);
+  return currentSitePhase === 'live';
 }

@@ -46,12 +46,12 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
   if (!product) notFound();
 
   const isEmpress = isEmpressGlowBrand(product.vendor);
-  const isProductLive = isLive && !isEmpress;
+  const isProductLive = isLive;
 
   const allProducts = await getProducts();
   const rawRelated = allProducts.filter((p) => p.slug !== slug && p.status === 'active').slice(0, 3);
   const relatedProducts = isLive
-    ? rawRelated.map((p) => (isEmpressGlowBrand(p.vendor) ? { ...p, price: 0, compare_at_price: undefined } : p))
+    ? rawRelated
     : rawRelated.map((p) => ({
         ...p,
         price: 0,

@@ -1,0 +1,292 @@
+[
+  {
+    "customer_name": "Mary Okon",
+    "customer_email": "mary.test@empressglowemporium.com",
+    "customer_phone": "+2348035650299",
+    "shipping_address": "104 Maitama Crescent",
+    "billing_address": "104 Maitama Crescent",
+    "city": "Abuja",
+    "state": "Abuja",
+    "items": [
+      {
+        "productId": "00000000-0000-0000-0000-000000000001",
+        "variantId": "var-hero-350",
+        "name": "Empress Glow Fruity Soap",
+        "variantName": "Large (350g)",
+        "price": 7000,
+        "quantity": 1,
+        "image": "/images/fruity-soap-hero.jpg"
+      }
+    ],
+    "subtotal": 7000,
+    "shipping_fee": 2500,
+    "total": 9500,
+    "currency": "NGN",
+    "client_ip": "::1",
+    "id": "ord_1793147644003_2zq3",
+    "status": "pending",
+    "financial_status": "unpaid",
+    "created_at": "2026-10-28T00:34:04.003Z",
+    "refunds": [],
+    "total_refunded": 0,
+    "fraud_analysis": {
+      "risk_level": "low",
+      "risk_score": 5,
+      "flags": [],
+      "ip_address": "::1",
+      "geolocation": {
+        "country": "Nigeria",
+        "country_code": "NG",
+        "city": "Abuja",
+        "is_vpn_or_proxy": false
+      },
+      "billing_shipping_match": true,
+      "high_value_order": false,
+      "velocity_count_24h": 1,
+      "assessed_at": "2026-10-28T00:34:04.003Z"
+    },
+    "paystack_reference": "mock_ref_ord_1793147644003_2zq3"
+  },
+  {
+    "id": "ord_demo_amina_01",
+    "customer_name": "Amina Bello",
+    "customer_email": "amina.bello@example.ng",
+    "customer_phone": "+2348023456789",
+    "shipping_address": "14 Maitama Crescent",
+    "city": "Abuja",
+    "state": "FCT",
+    "items": [
+      {
+        "productId": "00000000-0000-0000-0000-000000000001",
+        "variantId": "var-hero-350",
+        "name": "Empress Glow Fruity Soap",
+        "variantName": "Large (350g)",
+        "price": 7000,
+        "quantity": 2,
+        "image": "/images/fruity-soap-hero.jpg"
+      }
+    ],
+    "subtotal": 14000,
+    "shipping_fee": 2500,
+    "total": 16500,
+    "currency": "NGN",
+    "status": "paid",
+    "financial_status": "paid",
+    "paystack_reference": "pst_demo_amina_ref_8921",
+    "created_at": "2026-10-26T00:34:03.994Z",
+    "paid_at": "2026-10-26T00:39:03.994Z",
+    "tracking_notes": "Verified Paystack settlement. Ready for courier pickup.",
+    "refunds": [],
+    "total_refunded": 0,
+    "fraud_analysis": {
+      "risk_level": "low",
+      "risk_score": 5,
+      "flags": [],
+      "ip_address": "197.210.64.12",
+      "geolocation": {
+        "country": "Nigeria",
+        "country_code": "NG",
+        "city": "Abuja",
+        "is_vpn_or_proxy": false
+      },
+      "billing_shipping_match": true,
+      "high_value_order": false,
+      "velocity_count_24h": 1,
+      "assessed_at": "2026-10-26T00:34:03.994Z"
+    }
+  },
+  {
+    "id": "ord_demo_amina_02",
+    "customer_name": "Amina Bello",
+    "customer_email": "amina.bello@example.ng",
+    "customer_phone": "+2348023456789",
+    "shipping_address": "14 Maitama Crescent",
+    "city": "Abuja",
+    "state": "FCT",
+    "items": [
+      {
+        "productId": "00000000-0000-0000-0000-000000000001",
+        "variantId": "v4",
+        "name": "Empress Glow Fruity Soap",
+        "variantName": "XL (500g)",
+        "price": 16000,
+        "quantity": 1,
+        "image": "/images/fruity-soap-hero.jpg"
+      },
+      {
+        "productId": "00000000-0000-0000-0000-000000000008",
+        "variantId": "v-bao-1",
+        "name": "Aura Botanicals Pure Baobab Oil",
+        "variantName": "Standard Bottle (30ml)",
+        "price": 12000,
+        "quantity": 1,
+        "image": "/images/serum.jpg"
+      }
+    ],
+    "subtotal": 28000,
+    "shipping_fee": 2500,
+    "total": 30500,
+    "currency": "NGN",
+    "status": "paid",
+    "financial_status": "paid",
+    "paystack_reference": "pst_demo_amina_ref_9981",
+    "created_at": "2026-10-27T00:34:03.994Z",
+    "paid_at": "2026-10-27T00:37:03.994Z",
+    "tracking_notes": "Repeat VIP customer order. Priority courier dispatch.",
+    "refunds": [],
+    "total_refunded": 0,
+    "fraud_analysis": {
+      "risk_level": "low",
+      "risk_score": 5,
+      "flags": [],
+      "ip_address": "197.210.64.12",
+      "geolocation": {
+        "country": "Nigeria",
+        "country_code": "NG",
+        "city": "Abuja",
+        "is_vpn_or_proxy": false
+      },
+      "billing_shipping_match": true,
+      "high_value_order": false,
+      "velocity_count_24h": 1,
+      "assessed_at": "2026-10-27T00:34:03.994Z"
+    }
+  },
+  {
+    "id": "ord_demo_folake_02",
+    "customer_name": "Folake Adeleke",
+    "customer_email": "folake.adeleke@example.ng",
+    "customer_phone": "+2348098765432",
+    "shipping_address": "22 Admiralty Way, Lekki Phase 1",
+    "city": "Lagos",
+    "state": "Lagos",
+    "items": [
+      {
+        "productId": "00000000-0000-0000-0000-000000000002",
+        "variantId": "var-serum-50",
+        "name": "Empress Glow Serum",
+        "variantName": "50ml Bottle",
+        "price": 8500,
+        "quantity": 1,
+        "image": "/images/serum.jpg"
+      }
+    ],
+    "subtotal": 8500,
+    "shipping_fee": 2000,
+    "total": 10500,
+    "currency": "NGN",
+    "status": "delivered",
+    "financial_status": "paid",
+    "paystack_reference": "pst_demo_folake_ref_4412",
+    "created_at": "2026-10-24T00:34:03.994Z",
+    "paid_at": "2026-10-24T00:36:03.994Z",
+    "tracking_notes": "Delivered by GIG Logistics #GIG-9921",
+    "refunds": [],
+    "total_refunded": 0,
+    "return_tracking": {
+      "return_requested": true,
+      "return_status": "package_received",
+      "return_reason": "Defective pump mechanism reported within 4 days of delivery (FCCPC compliant)",
+      "return_requested_at": "2026-10-27T00:34:03.994Z",
+      "inspection_notes": "Physical return delivered to Calabar workshop. Pump defect confirmed."
+    },
+    "fraud_analysis": {
+      "risk_level": "low",
+      "risk_score": 10,
+      "flags": [],
+      "ip_address": "102.89.23.44",
+      "geolocation": {
+        "country": "Nigeria",
+        "country_code": "NG",
+        "city": "Lagos",
+        "is_vpn_or_proxy": false
+      },
+      "billing_shipping_match": true,
+      "high_value_order": false,
+      "velocity_count_24h": 1,
+      "assessed_at": "2026-10-24T00:34:03.994Z"
+    }
+  },
+  {
+    "id": "ord_demo_flagged_03",
+    "customer_name": "David K. Oladipo",
+    "customer_email": "d.oladipo.temp@throwaway.email",
+    "customer_phone": "+2348011223344",
+    "shipping_address": "Plot 402 Kuramo Waters, Victoria Island",
+    "billing_address": "142 West 57th St, New York, NY 10019, USA",
+    "city": "Lagos",
+    "state": "Lagos",
+    "items": [
+      {
+        "productId": "00000000-0000-0000-0000-000000000001",
+        "variantId": "var-hero-500",
+        "name": "Empress Glow Fruity Soap",
+        "variantName": "XL (500g)",
+        "price": 16000,
+        "quantity": 8,
+        "image": "/images/fruity-soap-hero.jpg"
+      },
+      {
+        "productId": "00000000-0000-0000-0000-000000000005",
+        "variantId": "v-cream-1",
+        "name": "Empress Glow Restoration Face Cream",
+        "variantName": "Night Jar (50ml)",
+        "price": 9000,
+        "quantity": 2,
+        "image": "/images/face-cream.jpg"
+      }
+    ],
+    "subtotal": 146000,
+    "shipping_fee": 3000,
+    "total": 149000,
+    "currency": "NGN",
+    "status": "pending",
+    "financial_status": "unpaid",
+    "paystack_reference": "pst_demo_risk_9918",
+    "created_at": "2026-10-27T18:34:03.994Z",
+    "tracking_notes": "Under review by Risk Compliance. Foreign billing and proxy mismatch.",
+    "refunds": [],
+    "total_refunded": 0,
+    "fraud_analysis": {
+      "risk_level": "high",
+      "risk_score": 85,
+      "flags": [
+        {
+          "code": "ADDR_MISMATCH",
+          "label": "Billing & Shipping Address Mismatch",
+          "severity": "medium",
+          "description": "Billing address located in New York, USA while delivery destination is in Lagos, Nigeria."
+        },
+        {
+          "code": "HIGH_VALUE_FIRST_TIME",
+          "label": "High-Value First-Time Buyer",
+          "severity": "medium",
+          "description": "Order total ₦149,000 exceeds ₦100,000 threshold without prior purchasing history."
+        },
+        {
+          "code": "ANONYMOUS_PROXY",
+          "label": "Commercial VPN or Anonymous Proxy Detected",
+          "severity": "high",
+          "description": "Connection originated from a commercial VPN exit node."
+        },
+        {
+          "code": "DISPOSABLE_EMAIL",
+          "label": "Disposable Temporary Email Domain",
+          "severity": "high",
+          "description": "Email registered under throwaway.email temporary inbox."
+        }
+      ],
+      "ip_address": "198.51.100.74",
+      "geolocation": {
+        "country": "United States",
+        "country_code": "US",
+        "city": "Secaucus",
+        "is_vpn_or_proxy": true
+      },
+      "billing_shipping_match": false,
+      "high_value_order": true,
+      "velocity_count_24h": 3,
+      "assessed_at": "2026-10-27T18:34:03.994Z"
+    }
+  }
+]

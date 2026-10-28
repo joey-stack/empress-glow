@@ -25,7 +25,7 @@ export function ProductCard({
 }: ProductCardProps) {
   const isHero = product.slug === 'empress-glow-fruity-soap';
   const isEmpress = isEmpressGlowBrand(product.vendor);
-  const isLiveProduct = sitePhase === 'live' && !isEmpress;
+  const isLiveProduct = sitePhase === 'live';
   const effectiveBadge = badge || (isHero ? 'Hero Formulation' : product.status === 'draft' ? 'Archive' : undefined);
   const productImage = product.images?.[0] || '/images/fruity-soap-hero.jpg';
   const displaySubtitle =

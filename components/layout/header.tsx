@@ -1,16 +1,67 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import { useCart } from '@/lib/cart/cart-context';
 import { NotifyMeDrawer } from '@/components/ui/notify-me-drawer';
 import { isLive } from '@/lib/phase';
 
+function getInitials(name?: string | null, email?: string | null): string {
+  if (name && name.trim()) {
+    const parts = name.trim().split(/\s+/);
+    if (parts.length >= 2) {
+      return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+    }
+    return parts[0].slice(0, 2).toUpperCase();
+  }
+  if (email && email.includes('@')) {
+    const prefix = email.split('@')[0];
+    return prefix.slice(0, 2).toUpperCase();
+  }
+  return 'EG';
+}
+
 export function Header() {
+  const pathname = usePathname();
   const [menuDrawerOpen, setMenuDrawerOpen] = useState(false);
   const [waitlistOpen, setWaitlistOpen] = useState(false);
   const { setIsCartOpen, itemCount } = useCart();
+  const [user, setUser] = useState<{ id: string; name: string; email: string } | null>(null);
+
+  useEffect(() => {
+    let active = true;
+    fetch('/api/account')
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (active) {
+          setUser(data?.user || null);
+        }
+      })
+      .catch(() => {
+        if (active) setUser(null);
+      });
+    return () => {
+      active = false;
+    };
+  }, [pathname]);
+
+  useEffect(() => {
+    const checkAuth = () => {
+      fetch('/api/account')
+        .then((res) => (res.ok ? res.json() : null))
+        .then((data) => setUser(data?.user || null))
+        .catch(() => setUser(null));
+    };
+
+    window.addEventListener('focus', checkAuth);
+    window.addEventListener('storage', checkAuth);
+    return () => {
+      window.removeEventListener('focus', checkAuth);
+      window.removeEventListener('storage', checkAuth);
+    };
+  }, []);
 
   return (
     <>
@@ -64,25 +115,38 @@ export function Header() {
           <div className="flex items-center space-x-2 sm:space-x-3">
             {isLive ? (
               <>
-                {/* User Profile / Account Icon */}
+                {/* User Profile / Account Icon or Initials Avatar */}
                 <Link
                   href="/account"
                   prefetch={false}
-                  aria-label="Account Profile"
-                  className="p-2 text-[#131010] hover:text-[#2d5508] transition-colors focus:outline-none"
+                  title={user ? `Empress Member Portal (${user.name || user.email})` : 'Sign In / Account Profile'}
+                  aria-label={user ? `Account Portal (${user.name || user.email})` : 'Account Profile'}
+                  className="p-1 text-[#131010] hover:text-[#2d5508] transition-colors focus:outline-none flex items-center group relative"
                 >
-                  <svg
-                    width="21"
-                    height="21"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    className="stroke-current"
-                  >
-                    <circle cx="12" cy="8" r="4.25" />
-                    <path d="M20 21a8 8 0 10-16 0" strokeLinecap="round" />
-                  </svg>
+                  {user ? (
+                    <div className="relative flex items-center justify-center">
+                      <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#2d5508] text-[#f7f1e8] font-mono text-[11px] sm:text-xs font-bold flex items-center justify-center border border-[#1e3b05] shadow-xs group-hover:scale-105 group-hover:bg-[#1e3b05] transition-all">
+                        {getInitials(user.name, user.email)}
+                      </div>
+                      <span
+                        className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-500 border-2 border-[#f7f1e8]"
+                        title="Active Session"
+                      />
+                    </div>
+                  ) : (
+                    <svg
+                      width="21"
+                      height="21"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      className="stroke-current"
+                    >
+                      <circle cx="12" cy="8" r="4.25" />
+                      <path d="M20 21a8 8 0 10-16 0" strokeLinecap="round" />
+                    </svg>
+                  )}
                 </Link>
 
                 {/* Shopping Bag / Cart Icon */}
@@ -155,6 +219,57 @@ export function Header() {
                   </svg>
                 </button>
               </div>
+
+              {/* Member Status / Quick Access inside Drawer (Live mode only) */}
+              {isLive && (
+                <div className="mb-6 pb-6 border-b border-[#e5dcd0]">
+                  {user ? (
+                    <Link
+                      href="/account"
+                      onClick={() => setMenuDrawerOpen(false)}
+                      className="flex items-center gap-3 p-3 bg-white border border-[#e5dcd0] hover:border-[#2d5508] transition-colors group"
+                    >
+                      <div className="w-10 h-10 rounded-full bg-[#2d5508] text-[#f7f1e8] font-mono text-xs font-bold flex items-center justify-center shrink-0 border border-[#1e3b05] shadow-xs">
+                        {getInitials(user.name, user.email)}
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <span className="font-mono text-[10px] uppercase tracking-wider text-[#7b7366] block">
+                          Empress Member
+                        </span>
+                        <span className="font-serif text-sm font-medium text-[#131010] truncate block group-hover:text-[#2d5508] transition-colors">
+                          {user.name || user.email}
+                        </span>
+                      </div>
+                      <span className="text-[#2d5508] text-xs font-mono group-hover:translate-x-0.5 transition-transform">
+                        Dashboard →
+                      </span>
+                    </Link>
+                  ) : (
+                    <Link
+                      href="/account"
+                      onClick={() => setMenuDrawerOpen(false)}
+                      className="flex items-center justify-between p-3 bg-white border border-[#e5dcd0] hover:border-[#2d5508] text-xs font-mono uppercase tracking-wider text-[#131010] hover:text-[#2d5508] transition-colors group"
+                    >
+                      <span className="flex items-center gap-2.5">
+                        <svg
+                          width="17"
+                          height="17"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="1.5"
+                          className="stroke-current"
+                        >
+                          <circle cx="12" cy="8" r="4" />
+                          <path d="M20 21a8 8 0 10-16 0" />
+                        </svg>
+                        <span>Sign In / Create Account</span>
+                      </span>
+                      <span className="text-[#2d5508] group-hover:translate-x-0.5 transition-transform">→</span>
+                    </Link>
+                  )}
+                </div>
+              )}
 
               {/* Navigation Links */}
               <nav className="space-y-6">
